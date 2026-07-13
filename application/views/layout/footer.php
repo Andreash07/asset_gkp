@@ -180,7 +180,7 @@
             $.post(url, dataMap, function(data){
                 $('#modal-content2').html(data)
                 setTimeout(function(){
-                //    load_lampiran_angjem()
+                   load_lampiran()
                 }, 500)
             })
         })
@@ -344,11 +344,11 @@
         tahun=$(this).val()
         get_pertumbuhanJemaat(tahun)
     })*/
-    function load_lampiran_angjem() {
+    function load_lampiran() {
         dataMap={}
-        dataMap['angjem_id']=$('#recid_uploadLampiran').val()
-        $.post('<?=base_url();?>admin/get_lampiran_angjem', dataMap, function(data){
-            $('#content_lampiran').html(data)
+        dataMap['token']=$('#token_aset_lampiran').val()
+        $.post('<?=base_url();?>aset/get_lampiran', dataMap, function(data){
+            $('#div_daftar_lampiran').html(data)
         })
     }
 
@@ -365,7 +365,7 @@
         $.post(url, dataMap, function(data){
             json=$.parseJSON(data)
             if(json.sts==1){
-                load_lampiran_angjem()
+                load_lampiran()
             }
             else{
                 iziToast.error({

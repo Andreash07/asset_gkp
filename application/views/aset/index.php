@@ -66,3 +66,51 @@ $this->load->view('layout/header');
 <?php
 $this->load->view('layout/footer');
 ?>
+
+<script>
+  $(document).on('click', '[id^=btn-rename-att]', function(e){
+    //e.preventDefault();
+    uniqid=$(this).attr('uniqid');
+    recid=$(this).attr('recid');
+    value=$(this).attr('value');
+    field_txt='<input class="form-control" name="rename_att'+uniqid+' token="'+recid+'" value="'+value+'" style="margin-bottom:2px;">'
+    field_txt+='<button class="btn btn-success btn-xs" title="Simpan Nama" uniq="'+uniqid+'"  token="'+recid+'" ><i class="fa fa-check"></i></button>'
+    field_txt+='<button class="btn btn-danger btn-xs pull-right" title="Batal" uniq="'+uniqid+'"  token="'+recid+'" ><i class="fa fa-times"></i></button>'
+    $('#td_att_'+uniqid).html(field_txt);
+  })
+  
+  $(document).on('blur change', '[id^=rename_att]', function(e){
+    token=$(this).attr('token');
+    value=$(this).val();
+
+    dataMap={}
+    dataMap['token']=token
+    dataMap['value']=value
+    url="<?=base_url();?>aset/rename_att"
+    $.post(url, dataMap, function(data){
+      json=$.parseJSON(data)
+      if(json.sts=1){
+        load_lampiran()
+        iziToast.success({
+          title: "Berhasil Mengubah Nama Lampiran!",
+          message: '',
+          position: "topRight",
+          class: "iziToast-succes",
+
+        });
+
+      }
+      else{
+        iziToast.error({
+          title: "Gagal Mengubah Nama Lampiran!",
+          message: 'Silahkan hubung Administrator!',
+          position: "topRight",
+          class: "iziToast-danger",
+
+        });
+      }
+    })
+
+
+  })
+</script>

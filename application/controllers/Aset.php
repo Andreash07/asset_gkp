@@ -149,43 +149,67 @@ class Aset extends CI_Controller {
 
 	public function upload_lampiran(){
 		$data=array();
-		$token=$this->input->get('token') ;
+		$token=$this->input->post('token') ;
 		$aset_id=str_replace('*92837ads0f87', "", base64_decode($token)) ;
-		$name_file = $aset_id."-".uniqid().".".pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+		#die(base64_decode($token));
+		$files=$_FILES['file'];
+		$size=$files['size'];
+		$name_file = $aset_id."-".uniqid().".".pathinfo($files['name'], PATHINFO_EXTENSION);
 		$config['upload_path']          = FCPATH.'78as98fd298a9s/';
-        $config['allowed_types']        = 'pdf|jpeg|jpg|png';
-        $config['max_size']             = 10485760; #10MB
-        $config['file_name']            = $name_file;
-        #$config['max_width']            = 1024;
-        #$config['max_height']           = 768;
+	        $config['allowed_types']        = 'pdf|jpeg|jpg|png';
+	        $config['max_size']             = 10485760; #10MB
+	        $config['file_name']            = $name_file;
+	        #$config['max_width']            = 1024;
+	        #$config['max_height']           = 768;
 
-        $this->load->library('upload', $config);
-        #echo $config['upload_path'] ;
-        $json=array();
-        if ( ! $this->upload->do_upload('file'))
-        {
-                $error = array('error' => $this->upload->display_errors());
-        		$json['sts']=0;
-        }
-        else
-        {
-                $data = array('upload_data' => $this->upload->data());
-        		$json['sts']=1;
-        }
+	        $this->load->library('upload', $config);
+	        #echo $config['upload_path'] ;
+	        $json=array();
+	        if ( ! $this->upload->do_upload('file'))
+	        {
+	                $error = array('error' => $this->upload->display_errors());
+	        		$json['sts']=0;
+	        }
+	        else
+	        {
+	                $data = array('upload_data' => $this->upload->data());
+	        		$json['sts']=1;
 
+		        $param=array();
+		        $param['asset_id']=$aset_id;
+		        $param['mime_type']=$data['upload_data']['file_type'];
+		        #$param['size']=$data['upload_data']['file_size'];
+		        $param['size']=$size; #byte
+		        $param['file_name']=$data['upload_data']['client_name'];
+		        $param['path']="78as98fd298a9s/".$name_file;
+		        $param['uploaded_at']=date('Y-m-d H:i:s');
+		        $param['upload_by']='7';
+
+		        $i=$this->m_model->insertgetid($param, 'lampiran_assets');
+		        if($i>0){
+				$json['sts']=2;
+		        }
+	        }
+
+	        echo json_encode($json);
         #print_r($error);
-        print_r($data);
+        #print_r($data);
         #print_r($json);
         #die();
 
-        $param=array();
-        $param['aset_id']=$aset_id;
-        $param['mime_type']=$data['file_type'];
-        $param['size']=$data['file_size'];
-        $param['file_name']=$data['client_name'];
-        $param['path']="78as98fd298a9s/".$name_file;
-        $param['uploaded_at']=date('Y-m-d H:i:s');
-        $param['upload_by']='7';
+	}
+
+
+	public function get_lampiran(){
+		$data=array();
+		$token=$this->input->post('token');
+		$aset_id=str_replace('*92837ads0f87', "", base64_decode($token)) ;
+
+		$data['lampiran']=$this->m_model->selectas('asset_id', $aset_id, 'lampiran_assets');
+
+		$this->load->view('aset/daftar_lampiran', $data);
+
+
 	}
 }
 
