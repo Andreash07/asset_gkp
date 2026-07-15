@@ -29,7 +29,7 @@
 					</th>
 					<th>
 						<button class="btn btn-warning btn-xs" title="Ubah Nama" id="btn-rename-att<?=$uniq;?>" uniqid="<?=$uniq;?>" recid="<?=md5($value->id);?>" value="<?=$name;?>" ><i class="fa fa-pencil"></i></button>
-						<button class="btn btn-danger btn-xs pull-right" title="Hapus Lampiran" id="btn-delete-att<?=$uniq;?>" ><i class="fa fa-trash"></i></button>
+						<button class="btn btn-danger btn-xs pull-right" title="Hapus Lampiran" id="btn-delete-att<?=$uniq;?>" recid="<?=md5($value->id);?>" value="<?=$name;?>" ><i class="fa fa-trash"></i></button>
 					</th>
 				</tr>
 		<?php

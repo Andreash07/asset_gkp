@@ -73,15 +73,92 @@ $this->load->view('layout/footer');
     uniqid=$(this).attr('uniqid');
     recid=$(this).attr('recid');
     value=$(this).attr('value');
-    field_txt='<input class="form-control" name="rename_att'+uniqid+' token="'+recid+'" value="'+value+'" style="margin-bottom:2px;">'
-    field_txt+='<button class="btn btn-success btn-xs" title="Simpan Nama" uniq="'+uniqid+'"  token="'+recid+'" ><i class="fa fa-check"></i></button>'
-    field_txt+='<button class="btn btn-danger btn-xs pull-right" title="Batal" uniq="'+uniqid+'"  token="'+recid+'" ><i class="fa fa-times"></i></button>'
+    field_txt='<input class="form-control" id="txt_field_rename_att'+uniqid+'" name="rename_att'+uniqid+'" token="'+recid+'" value="'+value+'" style="margin-bottom:2px;">'
+    field_txt+='<button class="btn btn-success btn-xs" title="Simpan Nama" uniq="'+uniqid+'"  token="'+recid+'" id="btn_save_rename_att'+recid+'" ><i class="fa fa-check"></i></button>'
+    field_txt+='<button class="btn btn-danger btn-xs pull-right" title="Batal" uniq="'+uniqid+'"  token="'+recid+'" id="btn_cancel_rename_att'+recid+'" ><i class="fa fa-times"></i></button>'
     $('#td_att_'+uniqid).html(field_txt);
   })
   
-  $(document).on('blur change', '[id^=rename_att]', function(e){
+  $(document).on('click', '[id^=btn-delete-att]', function(e){
+    if(confirm("Apakah Anda yakin ingin menghapus Lampiran ini ("+$(this).attr('value')+")?") == false){
+      iziToast.error({
+        title: "Lampiran batal dihapus!",
+        message: '',
+        position: "topRight",
+        class: "iziToast-danger",
+
+      });
+    }
+    url='<?=base_url();?>aset/delete_att'
+    dataMap={}
+    dataMap['token']=$(this).attr('recid')
+    $.post(url, dataMap, function(data){
+      json=$.parseJSON(data)
+      if(json.sts=1){
+        load_lampiran()
+        iziToast.success({
+          title: "Berhasil Menghapus Lampiran!",
+          message: '',
+          position: "topRight",
+          class: "iziToast-succes",
+
+        });
+
+      }
+      else{
+        iziToast.error({
+          title: "Gagal Menghapus Lampiran!",
+          message: 'Silahkan hubung Administrator!',
+          position: "topRight",
+          class: "iziToast-danger",
+
+        });
+      }
+    })
+  })
+
+  $(document).on('change', '[id^=akses_lampiran]', function(e){
+    dataMap={}
+    dataMap['token']=$(this).attr('recid')
+    dataMap['value']=$(this).val()
+    url="<?=base_url();?>aset/change_permission"
+    $.post(url, dataMap, function(data){
+      json=$.parseJSON(data)
+      if(json.sts=1){
+        load_lampiran()
+        iziToast.success({
+          title: "Berhasil Mengubah Hak Akses Lampiran!",
+          message: '',
+          position: "topRight",
+          class: "iziToast-succes",
+
+        });
+
+      }
+      else{
+        iziToast.error({
+          title: "Gagal Mengubah Hak Akses Lampiran!",
+          message: 'Silahkan hubung Administrator!',
+          position: "topRight",
+          class: "iziToast-danger",
+
+        });
+      }
+
+    })
+  })
+
+  $(document).on('click', '[id^=btn_cancel_rename_att]', function(e){
+    $('#td_att_'+$(this).attr('uniq')).html('<i class="text-danger">Membatalkan!</i>');
+    load_lampiran()
+
+
+  })
+  
+  //$(document).on('blur change', '[id^=rename_att]', function(e){
+  $(document).on('click', '[id^=btn_save_rename_att]', function(e){
     token=$(this).attr('token');
-    value=$(this).val();
+    value=$('#txt_field_rename_att'+$(this).attr('uniq')).val();
 
     dataMap={}
     dataMap['token']=token

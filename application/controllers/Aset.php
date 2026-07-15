@@ -205,10 +205,71 @@ class Aset extends CI_Controller {
 		$token=$this->input->post('token');
 		$aset_id=str_replace('*92837ads0f87', "", base64_decode($token)) ;
 
-		$data['lampiran']=$this->m_model->selectas('asset_id', $aset_id, 'lampiran_assets');
+		$data['lampiran']=$this->m_model->selectas2('asset_id', $aset_id, 'deleted', '0', 'lampiran_assets');
 
 		$this->load->view('aset/daftar_lampiran', $data);
 
+
+	}
+
+	public function rename_att(){
+		$data=array();
+		$token=$this->input->post('token');
+		$param=array();
+		$param['name']=clearText($this->input->post('value'));
+		$param['update_at']=date('Y-m-h H:i:s');
+		$param['update_by']=7;
+
+		$u=$this->m_model->updateas('md5(id)', $token, $param, 'lampiran_assets');
+		if($u){
+			$json['sts']=1;
+		}
+		else{
+			$json['sts']=0;
+		}
+
+		echo json_encode($json);
+
+	}
+
+	public function delete_att(){
+		$data=array();
+		$token=$this->input->post('token');
+		$param=array();
+		$param['deleted']=1;
+		$param['update_at']=date('Y-m-h H:i:s');
+		$param['update_by']=7;
+
+		$u=$this->m_model->updateas('md5(id)', $token, $param, 'lampiran_assets');
+		if($u){
+			$json['sts']=1;
+		}
+		else{
+			$json['sts']=0;
+		}
+
+		echo json_encode($json);
+
+	}
+
+
+	public function change_permission(){
+		$data=array();
+		$token=$this->input->post('token');
+		$param=array();
+		$param['private']=$this->input->post('value');
+		$param['update_at']=date('Y-m-h H:i:s');
+		$param['update_by']=7;
+
+		$u=$this->m_model->updateas('md5(id)', $token, $param, 'lampiran_assets');
+		if($u){
+			$json['sts']=1;
+		}
+		else{
+			$json['sts']=0;
+		}
+
+		echo json_encode($json);
 
 	}
 }
