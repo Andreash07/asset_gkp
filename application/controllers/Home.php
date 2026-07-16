@@ -21,13 +21,23 @@ class Home extends CI_Controller {
 	public function index()
 	{
 		$data=array();
-		$s="select B.name as nama_kategori_kepemilikan, B.id as kategori_kepemilikan, COUNT(A.id) as total_aset, SUM(A.luas) as total_luas_tanah, A.jenis_dokumen_kepemilikan, C.name as nama_jenis_dokumen 
+		$s="select B.name as nama_kategori_kepemilikan, B.initials as initials_kategori_kepemilikan, B.id as kategori_kepemilikan, COUNT(A.id) as total_aset, SUM(A.luas) as total_luas_tanah, A.jenis_dokumen_kepemilikan, C.name as nama_jenis_dokumen 
 				from kategori_kepemilikan B
 				left join assets A  on B.id = A.kategori_atas_nama
 				left join jenis_dokumen_kepemilikan C on C.id = A.jenis_dokumen_kepemilikan
 				group by B.id, C.id
 				order by B.priority;";
 		$q=$this->m_model->selectcustom($s);
+
+		$sjenis_dokumen_kepemilikan=$this->m_model->selectas('status', '1', 'jenis_dokumen_kepemilikan', 'priority', 'ASC');
+		$data['jenis_dokumen_kepemilikan']=$sjenis_dokumen_kepemilikan;
+
+		$sjenis_hak_milik="select B.name as jenis_hak_milik, B.priority, B.id as kategori_kepemilikan, COUNT(A.id) as total_aset, SUM(A.luas) as total_luas_tanah
+							from jenis_hak_milik B 
+							left join assets A  on B.id = A.status_hak_milik
+							group by B.id
+							order by B.priority;";
+		$data['jenis_hak_milik']=$this->m_model->selectcustom($sjenis_hak_milik);
 
 		$data['kategori_kepemilikan']=array();
 		foreach ($q as $key => $value) {
@@ -58,9 +68,28 @@ class Home extends CI_Controller {
 				$data['non_sertipikat']=$data['non_sertipikat']+$value->total_aset;
 			}
 
-			$data['kategori_kepemilikan'][$value->nama_kategori_kepemilikan]=$value->nama_kategori_kepemilikan;
+			$data['kategori_kepemilikan'][$value->nama_kategori_kepemilikan]=$value->initials_kategori_kepemilikan;
+
+
+			if(!isset($data['ls_jenis_dokumen_kepemilikan'][$value->jenis_dokumen_kepemilikan])){
+				if(($value->jenis_dokumen_kepemilikan==NULL || $value->jenis_dokumen_kepemilikan ==0 || $value->jenis_dokumen_kepemilikan =='') && !isset($data['ls_jenis_dokumen_kepemilikan']['0'])){
+					$data['ls_jenis_dokumen_kepemilikan']['0']=0;	
+				}
+				elseif($value->jenis_dokumen_kepemilikan !='' && !isset($data['ls_jenis_dokumen_kepemilikan'][$value->jenis_dokumen_kepemilikan]) ) {
+					$data['ls_jenis_dokumen_kepemilikan'][$value->jenis_dokumen_kepemilikan]=0;
+				}
+			}
+
+			if($value->jenis_dokumen_kepemilikan==NULL || $value->jenis_dokumen_kepemilikan ==0 || $value->jenis_dokumen_kepemilikan ==''){
+				$data['ls_jenis_dokumen_kepemilikan']['0']=$data['ls_jenis_dokumen_kepemilikan']['0']+$value->total_aset;
+			}
+			else{
+				$data['ls_jenis_dokumen_kepemilikan'][$value->jenis_dokumen_kepemilikan]=$data['ls_jenis_dokumen_kepemilikan'][$value->jenis_dokumen_kepemilikan]+$value->total_aset;
+			}
+
+
 		}
-		#print_r($data); die();
+		#echo "<pre>"; print_r($q); print_r($data); echo "</pre>" ; die();
 
 		$this->load->view('home/dashboard', $data);
 	}

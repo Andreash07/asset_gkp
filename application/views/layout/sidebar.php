@@ -58,9 +58,10 @@
 
               <ul class="nav side-menu">
 
-                <!--<li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                <li><a href="<?=base_url();?>"><i class="fa fa-home"></i> Home </a>
+                <li><a href="<?=base_url();?>aset"><i class="fa fa-map"></i> Aset </a>
 
-                  <ul class="nav child_menu">
+                <!--  <ul class="nav child_menu">
 
                     <li><a href="index.html">Dashboard</a></li>
 

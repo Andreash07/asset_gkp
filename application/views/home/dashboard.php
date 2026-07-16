@@ -6,17 +6,17 @@ $this->load->view('layout/header');
   	<div class="row tile_count">
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
           <span class="count_top"><i class="fa fa-user"></i> Total Aset</span>
-          <div class="count"><?=$total_aset;?></div>
+          <div class="count green"><?=$total_aset;?></div>
           <!--<span class="count_bottom"><i class="green">4% </i> From last Week</span>-->
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
           <span class="count_top"><i class="fa fa-clock-o"></i> Total Luas (m²)</span>
-          <div class="count"><?=$total_luas_tanah;?> </div>
+          <div class="count green"><?=$total_luas_tanah;?> </div>
           <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>-->
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
           <span class="count_top"><i class="fa fa-user"></i> Atas Nama Sinode</span>
-          <div class="count green"><?=$data_kepemilikan['Sinode GKP']; ?></div>
+          <div class="count"><?=$data_kepemilikan['Sinode GKP']; ?></div>
           <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>-->
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
@@ -60,119 +60,42 @@ $this->load->view('layout/header');
 	          	<div class="clearfix"></div>
             </div>
             <div class="x_content">
-	          	<div class="widget_summary">
-	                <div class="w_left w_25">
-	                  <span>Sertipikat</span>
-	                </div>
-	                <div class="w_center w_55">
-	                  <div class="progress">
-	                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
-	                      <span class="sr-only">60% Complete</span>
-	                    </div>
-	                  </div>
-	                </div>
-	                <div class="w_right w_20">
-	                  <span>123k</span>
-	                </div>
-	                <div class="clearfix"></div>
-              	</div>
+              <?php 
+                foreach ($jenis_dokumen_kepemilikan as $key => $value) {
+                  // code...
 
-              	<div class="widget_summary">
-	                <div class="w_left w_25">
-	                  <span>AJB</span>
-	                </div>
-	                <div class="w_center w_55">
-	                  <div class="progress">
-	                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
-	                      <span class="sr-only">60% Complete</span>
-	                    </div>
-	                  </div>
-	                </div>
-	                <div class="w_right w_20">
-	                  <span>53k</span>
-	                </div>
-	                <div class="clearfix"></div>
-              	</div>
-              	<div class="widget_summary">
-	                <div class="w_left w_25">
-	                  <span>Girik/Letter C/Persil</span>
-	                </div>
-	                <div class="w_center w_55">
-	                  <div class="progress">
-	                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
-	                      <span class="sr-only">60% Complete</span>
-	                    </div>
-	                  </div>
-	                </div>
-	                <div class="w_right w_20">
-	                  <span>23k</span>
-	                </div>
-	                <div class="clearfix"></div>
-              	</div>
-              	<div class="widget_summary">
-	                <div class="w_left w_25">
-	                  <span>Eigendom Verponding</span>
-	                </div>
-	                <div class="w_center w_55">
-	                  <div class="progress">
-	                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
-	                      <span class="sr-only">60% Complete</span>
-	                    </div>
-	                  </div>
-	                </div>
-	                <div class="w_right w_20">
-	                  <span>3k</span>
-	                </div>
-	                <div class="clearfix"></div>
-              	</div>
-              	<div class="widget_summary">
-	                <div class="w_left w_25">
-	                  <span>Pinjam</span>
-	                </div>
-	                <div class="w_center w_55">
-	                  <div class="progress">
-	                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
-	                      <span class="sr-only">60% Complete</span>
-	                    </div>
-	                  </div>
-	                </div>
-	                <div class="w_right w_20">
-	                  <span>1k</span>
-	                </div>
-	                <div class="clearfix"></div>
-              	</div>
-              	<div class="widget_summary">
-	                <div class="w_left w_25">
-	                  <span>Akta Hibah</span>
-	                </div>
-	                <div class="w_center w_55">
-	                  <div class="progress">
-	                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
-	                      <span class="sr-only">60% Complete</span>
-	                    </div>
-	                  </div>
-	                </div>
-	                <div class="w_right w_20">
-	                  <span>1k</span>
-	                </div>
-	                <div class="clearfix"></div>
-              	</div>
-              	<div class="widget_summary">
-	                <div class="w_left w_25">
-	                  <span>Tidak Diketahui</span>
-	                </div>
-	                <div class="w_center w_55">
-	                  <div class="progress">
-	                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
-	                      <span class="sr-only">60% Complete</span>
-	                    </div>
-	                  </div>
-	                </div>
-	                <div class="w_right w_20">
-	                  <span>1k</span>
-	                </div>
-	                <div class="clearfix"></div>
-              	</div>
+                $percentage=0;
+                if(isset($ls_jenis_dokumen_kepemilikan[$value->id])){
+                  $percentage=$ls_jenis_dokumen_kepemilikan[$value->id]/$total_aset*100;
+                }
+                else{
+                  $ls_jenis_dokumen_kepemilikan[$value->id]=0; 
+                }
+
+                $bg_bar='bg-green';
+                if($percentage ==0){
+                  $bg_bar='bg-red';
+                }
+              ?>
+                  <div class="widget_summary">
+                    <div class="w_left w_25">
+                      <span><?=$value->name;?></span>
+                    </div>
+                    <div class="w_center w_55">
+                      <div class="progress">
+                        <div class="progress-bar <?=$bg_bar;?>" role="progressbar" aria-valuenow="<?=$ls_jenis_dokumen_kepemilikan[$value->id];?>" aria-valuemin="0" aria-valuemax="<?=$total_aset;?>" style="width: <?= round($percentage,2);?>%;">
+                          <span class="sr-only"><?= round($percentage,2);?>% Complete</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="w_right w_20">
+                      <span><?=$ls_jenis_dokumen_kepemilikan[$value->id];?></span>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+              <?php
+                }
+              ?>
             </div>
       	</div>
       </div>
@@ -198,103 +121,36 @@ $this->load->view('layout/header');
           	<div class="clearfix"></div>
           </div>
           <div class="x_content">
-          	<div class="widget_summary">
-              <div class="w_left w_25">
-                <span>HM</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>123k</span>
-              </div>
-              <div class="clearfix"></div>
-          	</div>
+            <?php 
+              foreach ($jenis_hak_milik as $key => $value) {
+                // code...
+                $percentage=0;
+                $percentage=$value->total_aset/$total_aset*100;
 
-          	<div class="widget_summary">
-              <div class="w_left w_25">
-                <span>HGB</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
-                    <span class="sr-only">60% Complete</span>
+                $bg_bar='bg-green';
+                if($percentage ==0){
+                  $bg_bar='bg-red';
+                }
+            ?>
+              <div class="widget_summary">
+                <div class="w_left w_25">
+                  <span><?=$value->jenis_hak_milik;?></span>
+                </div>
+                <div class="w_center w_55">
+                  <div class="progress">
+                    <div class="progress-bar <?=$bg_bar;?>" role="progressbar" aria-valuenow="<?=$value->total_aset;?>" aria-valuemin="0" aria-valuemax="<?=$total_aset;?>" style="width: <?= round($percentage,2);?>%;">
+                      <span class="sr-only"> <?= round($percentage,2);?>% Complete</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="w_right w_20">
-                <span>53k</span>
-              </div>
-              <div class="clearfix"></div>
-          	</div>
-          	<div class="widget_summary">
-              <div class="w_left w_25">
-                <span>HGU</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
+                <div class="w_right w_20">
+                  <span><?=$value->total_aset;?></span>
                 </div>
+                <div class="clearfix"></div>
               </div>
-              <div class="w_right w_20">
-                <span>23k</span>
-              </div>
-              <div class="clearfix"></div>
-          	</div>
-          	<div class="widget_summary">
-              <div class="w_left w_25">
-                <span>HP</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>3k</span>
-              </div>
-              <div class="clearfix"></div>
-          	</div>
-          	<div class="widget_summary">
-              <div class="w_left w_25">
-                <span>Pinjam</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>1k</span>
-              </div>
-              <div class="clearfix"></div>
-          	</div>
-          	<div class="widget_summary">
-              <div class="w_left w_25">
-                <span>Tidak Diketahui</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>1k</span>
-              </div>
-              <div class="clearfix"></div>
-          	</div>
+            <?php 
+              }
+            ?>
           </div>
       	</div>
       </div>
@@ -324,9 +180,14 @@ $this->load->view('layout/header');
           		foreach ($kategori_kepemilikan as $key => $value) {
           			// code...
           			$percentage=0;
-          			if($data_kepemilikan[$value] >0 ){
-          				$percentage=$total_aset/$data_kepemilikan[$value]*100;
+          			if($data_kepemilikan[$key] >0 ){
+          				$percentage=$data_kepemilikan[$key]/$total_aset*100;
           			}
+
+                $bg_bar='bg-green';
+                if($percentage ==0){
+                  $bg_bar='bg-red';
+                }
       			?>
     					<div class="widget_summary">
 	              <div class="w_left w_25">
@@ -334,132 +195,19 @@ $this->load->view('layout/header');
 	              </div>
 	              <div class="w_center w_55">
 	                <div class="progress">
-	                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="<?=$data_kepemilikan[$value];?>" aria-valuemin="0" aria-valuemax="<?=$total_aset;?>" style="width: <?=round($percentage, 2);?>%;">
-	                    <span class="sr-only">60% Complete</span>
+	                  <div class="progress-bar <?=$bg_bar;?>" role="progressbar" aria-valuenow="<?=$data_kepemilikan[$key];?>" aria-valuemin="0" aria-valuemax="<?=$total_aset;?>" style="width: <?=round($percentage, 2);?>%;">
+	                    <span class="sr-only"><?=round($percentage, 2);?> % Complete</span>
 	                  </div>
 	                </div>
 	              </div>
 	              <div class="w_right w_20">
-	                <span>123k</span>
+	                <span><?=$data_kepemilikan[$key];?></span>
 	              </div>
 	              <div class="clearfix"></div>
 	          	</div>
       			<?php
           		}
           	?>
-          	<div class="widget_summary">
-              <div class="w_left w_25">
-                <span>Sinode GKP</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>123k</span>
-              </div>
-              <div class="clearfix"></div>
-          	</div>
-
-          	<div class="widget_summary">
-              <div class="w_left w_25">
-                <span>Jemaat GKP</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>53k</span>
-              </div>
-              <div class="clearfix"></div>
-          	</div>
-          	<div class="widget_summary">
-              <div class="w_left w_25">
-                <span>Badan Pelayanan GKP</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>23k</span>
-              </div>
-              <div class="clearfix"></div>
-          	</div>
-          	<div class="widget_summary">
-              <div class="w_left w_25">
-                <span>Mitra</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>3k</span>
-              </div>
-              <div class="clearfix"></div>
-          	</div>
-          	<div class="widget_summary">
-              <div class="w_left w_25">
-                <span>Negara</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>1k</span>
-              </div>
-              <div class="clearfix"></div>
-          	</div>
-          	<div class="widget_summary">
-              <div class="w_left w_25">
-                <span>Pribadi</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>1k</span>
-              </div>
-              <div class="clearfix"></div>
-          	</div>
-          	<div class="widget_summary">
-              <div class="w_left w_25">
-                <span>Tidak Diketahui</span>
-              </div>
-              <div class="w_center w_55">
-                <div class="progress">
-                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
-                    <span class="sr-only">60% Complete</span>
-                  </div>
-                </div>
-              </div>
-              <div class="w_right w_20">
-                <span>1k</span>
-              </div>
-              <div class="clearfix"></div>
-          	</div>
           </div>
       	</div>
       </div>
@@ -486,23 +234,8 @@ $this->load->view('layout/header');
 	          	</ul>
 	          	<div class="clearfix"></div>
             </div>
-            <div class="x_content">
-	          	<div class="widget_summary">
-	                <div class="w_left w_25">
-	                  <span>Klasis Bekasi</span>
-	                </div>
-	                <div class="w_center w_55">
-	                  <div class="progress">
-	                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
-	                      <span class="sr-only">60% Complete</span>
-	                    </div>
-	                  </div>
-	                </div>
-	                <div class="w_right w_20">
-	                  <span>123k</span>
-	                </div>
-	                <div class="clearfix"></div>
-              	</div>
+            <div class="x_content" id="x_content_aset_klasis">
+	          	
               	<div class="widget_summary">
 	                <div class="w_left w_25">
 	                  <span>Klasis Bogor</span>
@@ -701,7 +434,12 @@ $this->load->view('layout/footer');
 
 			  grid: {
 
-				  borderWidth: 0
+				  borderWidth: 0,
+          left: 60,
+    right: 20,
+    top: 30,
+    height: 200,
+    //containLabel: true
 
 			  },
 
@@ -1033,14 +771,17 @@ $this->load->view('layout/footer');
 
 		  }
 
-	echart1()
-	function echart1(){
+	//echart1()
+	function echart1(jemaat, aset_jemaat, num_aset_jemaat, luas_aset_jemaat ){
 
 			if ($('#mainb').length ){
 
 			  	var echartBar = echarts.init(document.getElementById('mainb'), theme);
 
-			  	console.log(peserta_pemilihan)
+			  	console.log(jemaat)
+          console.log(aset_jemaat)
+          console.log(num_aset_jemaat)
+          console.log(luas_aset_jemaat)
 
 			  	echartBar.setOption({
 
@@ -1076,8 +817,17 @@ $this->load->view('layout/footer');
 
 					  type: 'category',
 
-					  data: ['Wil 1', 'Wil 2', 'Wil 3', 'Wil 4', 'Wil 5', 'Wil 6', 'Wil 7']
-
+					  data: jemaat,
+            axisLabel: {
+              interval: 0,
+              rotate: 60,
+              textStyle: {
+                fontSize: 8,
+                color: '#666',
+                fontFamily: 'Arial',
+                fontWeight: 'normal' 
+              }
+            }
 					}],
 
 					yAxis: [{
@@ -1088,11 +838,11 @@ $this->load->view('layout/footer');
 
 					series: [{
 
-					  name: 'Total Suara',
+					  name: 'Total Aset',
 
 					  type: 'bar',
 
-					  data: peserta_pemilihan,
+					  data: num_aset_jemaat,
 
 					  markPoint: {
 
@@ -1116,41 +866,11 @@ $this->load->view('layout/footer');
 
 					}, {
 
-					  name: 'Suara Sah',
+					  name: 'Total Luas',
 
 					  type: 'bar',
 
-					  data: suaraDikunci,
-
-					  markPoint: {
-
-						data: [{
-
-						  type: 'max',
-
-						  name: 'Terbanyak'
-
-						},
-
-						{
-
-						  type: 'min',
-
-						  name: 'Terendah'
-
-						}]
-
-					  },
-
-					},
-
-					{
-
-					  name: 'Suara Belum Dikunci',
-
-					  type: 'bar',
-
-					  data: suaraBelumDikunci,
+					  data: luas_aset_jemaat,
 
 					  markPoint: {
 
@@ -1181,10 +901,44 @@ $this->load->view('layout/footer');
 
 		}
 
+    get_data()
+
 		function get_data(){
 			dataMap={}
 			$.get('<?=base_url();?>api/dashboard', dataMap, function(data){
-
+        json=$.parseJSON(data)
+        echart1(json.jemaat, json.aset_jemaat, json.num_aset_jemaat, json.luas_aset_jemaat)
+        aset_klasis(json.klasis, json.total_aset)
 			})
 		}
+
+    function aset_klasis(klasis, total_aset){
+        content="";
+        console.log('asdasd');
+      $.each(klasis, function(index, value){
+        bg_bar="bg-green"
+        if(parseFloat(value.percentage) == 0){
+          bg_bar="bg-red"
+        }
+
+        content+='<div class="widget_summary">'
+                +'<div class="w_left w_25">'
+                  +'<span>'+value.klasis+'</span>'
+                +'</div>'
+                +'<div class="w_center w_55">'
+                  +'<div class="progress">'
+                    +'<div class="progress-bar '+bg_bar+'" role="progressbar" aria-valuenow="'+value.num_aset+'" aria-valuemin="0" aria-valuemax="'+total_aset+'" style="width: '+value.percentage+'%;">'
+                      +'<span class="sr-only">'+value.percentage+'% Complete</span>'
+                    +'</div>'
+                  +'</div>'
+                +'</div>'
+                +'<div class="w_right w_20">'
+                  +'<span>'+value.num_aset+'</span>'
+                +'</div>'
+                +'<div class="clearfix"></div>'
+              +'</div>';
+      })
+
+      $('#x_content_aset_klasis').html(content)
+    }
 </script>

@@ -15,11 +15,11 @@ $this->load->view('layout/header');
           <table class="table table-striped" id="item_sj">
             <thead>
               <tr>
-                <th>#</th>
-                <th>Nama Aset</th>
-                <th>Jemaat/Klasis</th>
-                <th>Ringkasan Aset</th>
-                <th>Tindakan</th>
+                <th class="text-center" style="width: 30px;">#</th>
+                <th class="text-center">Nama Aset</th>
+                <th class="text-center">Jemaat/Klasis</th>
+                <th class="text-center">Ringkasan Aset</th>
+                <th class="text-center" style="width: 100px;">Tindakan</th>
               </tr>
             </thead>
             <tbody>
@@ -29,7 +29,7 @@ $this->load->view('layout/header');
                 # code...
               ?>
                 <tr>
-                  <td><?=$i++;?></td>
+                  <td class="text-center" style="width: 30px;"><?=$i++;?></td>
                   <td>
                     <?=$value->peruntukan_tanah;?><br>
                     <span style="font-size: 12px; line-height: 0.7;">Atas Nama: <b><?=$value->atas_nama;?></b> (<b><?=$value->kategori_atas_nama;?></b>) </span><br>
@@ -38,17 +38,18 @@ $this->load->view('layout/header');
                     <span style="font-size: 12px;  line-height: 0.7;">Status Kepelimikan : <b><?=$value->status_hak_milik;?></b></span><br>
                     <span style="font-size: 12px;  line-height: 0.7;">Keterangan: <b><?= nl2br($value->keterangan);?></b></span><br>
                   </td>
-                  <td><b><?=$value->jemaat;?></b><br><?=$value->klasis;?></td>
+                  <td class="text-center"><b><?=$value->jemaat;?></b><br><?=$value->klasis;?></td>
                   <td>
                     <span style="font-size: 12px;  line-height: 0.7;">Luas: <b><?=$value->luas;?> M²</b></span><br>
                     <span style="font-size: 12px;  line-height: 0.7;">Lokasi: <b><?= nl2br($value->alamat_lokasi);?></b></span>
                     <span style="font-size: 12px;  line-height: 0.7;">Catatan: <b><?= nl2br($value->catatan);?></b></span><br>
                     <span style="font-size: 12px;  line-height: 0.7;">Maps: <a href="https://www.google.com/maps?q=<?=$value->langtitude;?>,<?=$value->longtitude;?>" target="_BLANK"><i class="fa fa-map"></i></a> </span><br>
                   </td>
-                  <td>
+                  <td class="text-center" style="width: 100px;">
                     <div class="btn btn-success btn-xs" title="Unggah Lampiran" id="btn-formuploadlampiran<?=$value->id;?>" href="<?=base_url().'aset/form_upload_lampiran?auth='.base64_encode($value->id."*92837ads0f87");?>" nama_asset="<?=$value->peruntukan_tanah." (".$value->jemaat.")"; ?>"><i class="fa fa-files-o"></i></div>
-                    <a class="btn btn-warning btn-xs" title="Perbarui Data" href="<?=base_url().'aset/edit/'.$value->id;?>"><i class="fa fa-pencil"></i></a>
-                    <div class="btn btn-danger btn-xs pull-right" title="Hapus Data" id="btn_hapus-Mutasi<?=$value->id;?>" href="<?=base_url().'aset/detele?token='.md5($value->id.'jHGSj2898!aA');?>"><i class="fa fa-trash"></i></div>
+                    <div class="btn btn-warning btn-xs" title="Perbarui Data" href="<?=base_url().'aset/edit/'.$value->id;?>"><i class="fa fa-pencil"></i></div>
+                    <div class="divider"></div>
+                    <div class="btn btn-danger btn-xs" title="Hapus Data" id="btn_hapus-Mutasi<?=$value->id;?>" href="<?=base_url().'aset/detele?token='.md5($value->id.'jHGSj2898!aA');?>"><i class="fa fa-trash"></i></div>
 
                   </td>
                 </tr>

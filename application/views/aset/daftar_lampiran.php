@@ -28,6 +28,7 @@
 						</select>
 					</th>
 					<th>
+						<a href="<?=base_url();?>aset/view_attachment/<?=MD5("KJHkah1298AS*&".$value->id);?>" data-fancybox data-type="iframe" data-autosize="true" class="btn btn-success btn-xs"> <i class="fa fa-external-link"></i> </a>
 						<button class="btn btn-warning btn-xs" title="Ubah Nama" id="btn-rename-att<?=$uniq;?>" uniqid="<?=$uniq;?>" recid="<?=md5($value->id);?>" value="<?=$name;?>" ><i class="fa fa-pencil"></i></button>
 						<button class="btn btn-danger btn-xs pull-right" title="Hapus Lampiran" id="btn-delete-att<?=$uniq;?>" recid="<?=md5($value->id);?>" value="<?=$name;?>" ><i class="fa fa-trash"></i></button>
 					</th>

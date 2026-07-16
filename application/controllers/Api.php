@@ -37,7 +37,67 @@ class Api extends CI_Controller {
 	public function dashboard()
 	{
 		$data=array();
+
+		//get_data perjamaat
+		$s="select C.name as klasis, A.klasis_id, A.CompName as jemaat, A.id as jemaat_id, COUNT(B.id) as num_aset, SUM(B.luas) as total_luas_tanah
+				from jemaat A 
+				left join assets B on B.jemaat_id = A.id 
+				left Join klasis C on C.id = A.klasis_id
+				group by A.id
+				order by A.id;";
+		$q=$this->m_model->selectcustom($s);
+
+		$data['jemaat']=array();
+		$data['klasis']=array();
+		$data['aset_jemaat']=$q;
+		$data['num_aset_jemaat']=array();
+		$data['luas_aset_jemaat']=array();
+
+		$total_aset=0;
+		$total_luas=0;
+		foreach ($q as $key => $value) {
+			// code...
+			if(!isset($data['num_aset_jemaat'][$value->jemaat_id])){
+				//$data['num_aset_jemaat'][]=0;
+				//$data['luas_aset_jemaat'][$value->jemaat_id]=0;
+			}
+			
+			if(!isset($data['klasis'][$value->klasis_id])){
+				$data['klasis'][$value->klasis_id]=array();
+				$data['klasis'][$value->klasis_id]['klasis']=$value->klasis;
+				if($value->klasis== ''){
+					$data['klasis'][$value->klasis_id]['klasis']=$value->jemaat;
+				}
+				$data['klasis'][$value->klasis_id]['klasis_id']=$value->klasis_id;
+				$data['klasis'][$value->klasis_id]['num_aset']=0;
+				$data['klasis'][$value->klasis_id]['percentage']=0;
+			}
+			$data['klasis'][$value->klasis_id]['num_aset']=$data['klasis'][$value->klasis_id]['num_aset']+$value->num_aset;
+			$data['jemaat'][]=$value->jemaat;
+
+			$data['num_aset_jemaat'][]=$value->num_aset;
+			$data['luas_aset_jemaat'][]=$value->total_luas_tanah;
+
+			$total_aset=$total_aset+$value->num_aset;
+			$total_luas=$total_luas+$value->total_luas_tanah;
+		}
+
+		//hitung aset klasis dulu
+		foreach ($data['klasis'] as $key => $value) {
+			// code...
+			$percentage=0;
+			if($value['num_aset'] >0){
+				$percentage=round($value['num_aset']/$total_aset*100, 2);
+			}
+
+			$data['klasis'][$key]['percentage']=$percentage;
+
+		}
+
+		$data['total_aset']=$total_aset;
+		$data['total_luas']=$total_luas;
 		
+		echo json_encode($data);
 	}
 	
 }

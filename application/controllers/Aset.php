@@ -216,7 +216,7 @@ class Aset extends CI_Controller {
 		$data=array();
 		$token=$this->input->post('token');
 		$param=array();
-		$param['name']=clearText($this->input->post('value'));
+		$param['name']=$this->input->post('value');
 		$param['update_at']=date('Y-m-h H:i:s');
 		$param['update_by']=7;
 
@@ -271,6 +271,47 @@ class Aset extends CI_Controller {
 
 		echo json_encode($json);
 
+	}
+
+
+
+	public function view_attachment($token){
+		$data=array();
+
+		//get path dulu dari db
+		$token=clearText($token);
+		$sfile=$this->m_model->selectas('MD5(CONCAT("KJHkah1298AS*&",id))', $token, 'lampiran_assets');
+
+		if(count($sfile)==0){
+			redirect(base_url().'Page/NotFound');
+		}
+
+		$mime_img=array("image/png", "image/jpg", "image/jpeg", "image/jp2g");
+		$mime_pdf=array("application/pdf");
+
+		foreach ($sfile as $key => $value) {
+			// code...
+			$private=$value->private;	
+			$size=$value->size; //in byte
+			$mime_type=$value->mime_type;	
+			$file_name=$value->file_name;	
+			$path=FCPATH.$value->path;
+			
+			$name=$value->name;	
+			if($name==''){
+				$name=pathinfo($value->file_name, PATHINFO_FILENAME);	
+			}
+		}
+
+
+		$fp = fopen($path, 'rb');
+
+		header('Content-Type: '.mime_content_type($path));
+		header('Content-Length: '.filesize($path));
+		header("Content-Disposition: inline; filename=\"{$name}\"; filename*=UTF-8''".rawurlencode($name));
+
+		fpassthru($fp);
+		exit;
 	}
 }
 
