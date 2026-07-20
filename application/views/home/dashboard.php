@@ -6,32 +6,42 @@ $this->load->view('layout/header');
   	<div class="row tile_count">
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
           <span class="count_top"><i class="fa fa-user"></i> Total Aset</span>
-          <div class="count green"><?=$total_aset;?></div>
+          <div class="count"><?=$total_aset;?></div>
           <!--<span class="count_bottom"><i class="green">4% </i> From last Week</span>-->
         </div>
-        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <!--<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
           <span class="count_top"><i class="fa fa-clock-o"></i> Total Luas (m²)</span>
-          <div class="count green"><?=$total_luas_tanah;?> </div>
+          <div class="count green"><?=$total_luas_tanah;?> </div>-->
           <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>-->
-        </div>
+        <!--</div>-->
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-          <span class="count_top"><i class="fa fa-user"></i> Atas Nama Sinode</span>
-          <div class="count"><?=$data_kepemilikan['Sinode GKP']; ?></div>
+          <span class="count_top"><i class="fa fa-sitemap"></i> Atas Nama Sinode</span>
+          <div class="count <?php if($data_kepemilikan['Sinode GKP']<=0) echo "red"; else echo "green"; ?>"><?=$data_kepemilikan['Sinode GKP']; ?></div>
           <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>-->
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-          <span class="count_top"><i class="fa fa-user"></i> Atas Nama Jemaat</span>
-          <div class="count"><?=$data_kepemilikan['Jemaat GKP']; ?></div>
+          <span class="count_top"><i class="fa fa-building"></i> Atas Nama Bapel</span>
+          <div class="count <?php if($data_kepemilikan['Badan Pelayanan GKP']<=0) echo "red"; else echo "green"; ?>"><?=$data_kepemilikan['Badan Pelayanan GKP']; ?></div>
+          <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>-->
+        </div>
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"><i class="fa fa-users"></i> Atas Nama Jemaat</span>
+          <div class="count <?php if($data_kepemilikan['Jemaat GKP']<=0) echo "red"; else echo "green"; ?> "><?=$data_kepemilikan['Jemaat GKP']; ?></div>
           <!--<span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>-->
         </div>
-        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <!--<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
           <span class="count_top"><i class="fa fa-user"></i> Aset Bersertifikat</span>
-          <div class="count"><?=$sertipikat;?></div>
+          <div class="count"><?=$sertipikat;?></div>-->
+          <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>-->
+        <!--</div>-->
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <span class="count_top"><i class="fa fa-user"></i> Atas Nama Pribadi</span>
+          <div class="count <?php if($data_kepemilikan['Pribadi']>0) echo "red"; else echo "green"; ?>"><?=$data_kepemilikan['Pribadi'];?></div>
           <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>-->
         </div>
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-          <span class="count_top"><i class="fa fa-user"></i> Belum Bersertifikat</span>
-          <div class="count"><?=$non_sertipikat;?></div>
+          <span class="count_top"><i class="fa fa-user"></i> Proses Sertifikat</span>
+          <div class="count <?php if($non_sertipikat>0) echo "red"; else echo "green"; ?>"><?=$non_sertipikat;?></div>
           <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>-->
         </div>
   	</div>
@@ -801,7 +811,8 @@ $this->load->view('layout/footer');
 
 					legend: {
 
-					  data: ['Total Aset', 'Total Luas']
+					  //data: ['Total Aset', 'Total Luas']
+            data: ['Total Aset']
 
 					},
 
@@ -864,7 +875,7 @@ $this->load->view('layout/footer');
 
 					  },
 
-					}, {
+					}, /*{
 
 					  name: 'Total Luas',
 
@@ -892,7 +903,7 @@ $this->load->view('layout/footer');
 
 					  },
 
-					}]
+					}*/]
 
 			  	});
 

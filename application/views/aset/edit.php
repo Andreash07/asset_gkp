@@ -78,8 +78,12 @@ $this->load->view('layout/header');
 			          					foreach ($kategori_kepemilikan as $key2 => $value2) {
 			          						# code...
 				          					$selected="";
+				          					$hide_text="display: none;";
 				          					if($value->kategori_atas_nama == $value2->id){
 				          						$selected="selected";
+				          						if(in_array(strtolower($value2->name), array('pribadi','negara', 'mitra','badan pelayanan gkp'))){
+				          							$hide_text="display: show;";
+				          						}
 				          					}
 			          				?>
 			          						<option <?=$selected;?> value="<?=$value2->id;?>"><?=$value2->name;?></option>
@@ -87,6 +91,7 @@ $this->load->view('layout/header');
 			          					}
 			          				?>
 			          			</select>
+			          			<input type="text" name="country" id="autocomplete-custom-append" class="form-control" style="<?=$hide_text;?>" placeholder="YPTK/YBRS/GPIB/GKI/TNI/Pemprov/dll">
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -330,6 +335,25 @@ function ambilLokasi() {
     alert('Lat: ' + lat + '\nLng: ' + lng);
     $('#id_label_change').hide();
 }
+
+	
+	$(document).on('change','[name=kategori_atas_nama]', function(){
+		val=$(this).val().toLowerCase()
+		//const text_show = ["mitra", "negara", "badan pelayanan gkp", "pribadi"];
+		const text_show = ["3", "4", "5", "7"];
+		if(text_show.includes(val) == true){
+			$('#autocomplete-custom-append').show()
+		}
+		else{
+			$('#autocomplete-custom-append').val('')			
+			$('#autocomplete-custom-append').hide()			
+		}
+	})
+	kategori_atas_nama_text=$.parseJSON('<?= json_encode($kategori_atas_nama_text);?>')
+	$('#autocomplete-custom-append').autocomplete({
+		minChars: 1,
+		lookup: kategori_atas_nama_text
+	});
 </script>
 
 <script async defer

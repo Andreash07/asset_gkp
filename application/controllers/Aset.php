@@ -60,6 +60,17 @@ class Aset extends CI_Controller {
 		$data['kategori_kepemilikan']=$this->m_model->selectas('id>=0', null, 'kategori_kepemilikan');
 		$data['jenis_hak_milik']=$this->m_model->selectas('id>=0', null, 'jenis_hak_milik');
 
+		$data['kategori_atas_nama_text'][]=array('value'=>'YBRS');
+		$data['kategori_atas_nama_text'][]=array('value'=>'YBPK');
+		$data['kategori_atas_nama_text'][]=array('value'=>'YPT');
+		$data['kategori_atas_nama_text'][]=array('value'=>'YKB');
+
+		$s2=$this->m_model->selectcustom('select * from assets where kategori_atas_nama_text is not NULL && kategori_atas_nama_text !="" group by kategori_atas_nama_text');
+		foreach ($s2 as $key => $value) {
+			# code...
+			$data['kategori_atas_nama_text'][]=array('value'=> $value->kategori_atas_nama_text);
+		}
+
 		$this->load->view('aset/edit', $data);
 
 	}

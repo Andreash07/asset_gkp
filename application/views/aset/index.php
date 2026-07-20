@@ -47,7 +47,7 @@ $this->load->view('layout/header');
                   </td>
                   <td class="text-center" style="width: 100px;">
                     <div class="btn btn-success btn-xs" title="Unggah Lampiran" id="btn-formuploadlampiran<?=$value->id;?>" href="<?=base_url().'aset/form_upload_lampiran?auth='.base64_encode($value->id."*92837ads0f87");?>" nama_asset="<?=$value->peruntukan_tanah." (".$value->jemaat.")"; ?>"><i class="fa fa-files-o"></i></div>
-                    <div class="btn btn-warning btn-xs" title="Perbarui Data" href="<?=base_url().'aset/edit/'.$value->id;?>"><i class="fa fa-pencil"></i></div>
+                    <a class="btn btn-warning btn-xs" title="Perbarui Data" href="<?=base_url().'aset/edit/'.$value->id;?>"><i class="fa fa-pencil"></i></a>
                     <div class="divider"></div>
                     <div class="btn btn-danger btn-xs" title="Hapus Data" id="btn_hapus-Mutasi<?=$value->id;?>" href="<?=base_url().'aset/detele?token='.md5($value->id.'jHGSj2898!aA');?>"><i class="fa fa-trash"></i></div>
 
