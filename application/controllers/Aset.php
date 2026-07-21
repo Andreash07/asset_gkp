@@ -97,6 +97,7 @@ class Aset extends CI_Controller {
 		$param['peruntukan_tanah']=$this->input->post('peruntukan_tanah');
 		$param['atas_nama']=$this->input->post('atas_nama');
 		$param['kategori_atas_nama']=$this->input->post('kategori_atas_nama');
+		$param['kategori_atas_nama_text']=$this->input->post('kategori_atas_nama_text');
 		$param['jenis_dokumen_kepemilikan']=$this->input->post('jenis_dokumen_kepemilikan');
 		$param['status_hak_milik']=$this->input->post('status_hak_milik');
 		$param['luas']=$this->input->post('luas');
@@ -127,6 +128,7 @@ class Aset extends CI_Controller {
 		$param['peruntukan_tanah']=$this->input->post('peruntukan_tanah');
 		$param['atas_nama']=$this->input->post('atas_nama');
 		$param['kategori_atas_nama']=$this->input->post('kategori_atas_nama');
+		$param['kategori_atas_nama_text']=$this->input->post('kategori_atas_nama_text');
 		$param['jenis_dokumen_kepemilikan']=$this->input->post('jenis_dokumen_kepemilikan');
 		$param['status_hak_milik']=$this->input->post('status_hak_milik');
 		$param['luas']=$this->input->post('luas');

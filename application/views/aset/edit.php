@@ -75,10 +75,10 @@ $this->load->view('layout/header');
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
 			          			<select class="form-control" name="kategori_atas_nama">
 			          				<?php 
+			          					$hide_text="display: none;";
 			          					foreach ($kategori_kepemilikan as $key2 => $value2) {
 			          						# code...
 				          					$selected="";
-				          					$hide_text="display: none;";
 				          					if($value->kategori_atas_nama == $value2->id){
 				          						$selected="selected";
 				          						if(in_array(strtolower($value2->name), array('pribadi','negara', 'mitra','badan pelayanan gkp'))){
@@ -91,7 +91,7 @@ $this->load->view('layout/header');
 			          					}
 			          				?>
 			          			</select>
-			          			<input type="text" name="country" id="autocomplete-custom-append" class="form-control" style="<?=$hide_text;?>" placeholder="YPTK/YBRS/GPIB/GKI/TNI/Pemprov/dll">
+			          			<input type="text" name="kategori_atas_nama_text" id="autocomplete-custom-append" class="form-control" style="<?=$hide_text;?>" placeholder="YPTK/YBRS/GPIB/GKI/TNI/Pemprov/dll" value="<?=$value->kategori_atas_nama_text;?>">
 				          	</div>
 				        </div>
 				        <div class="form-group">
