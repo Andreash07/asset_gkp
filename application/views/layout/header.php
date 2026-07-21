@@ -91,6 +91,7 @@
     <!-- Switchery -->
 
     <link href="<?=base_url();?>vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <link href="<?=base_url();?>vendors/select2/dist/css/select2.min.css" rel="stylesheet">
 
 
 

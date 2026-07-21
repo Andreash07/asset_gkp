@@ -44,7 +44,7 @@ class Api extends CI_Controller {
 				left join assets B on B.jemaat_id = A.id 
 				left Join klasis C on C.id = A.klasis_id
 				group by A.id
-				order by A.id;";
+				order by num_aset DESC, A.id;";
 		$q=$this->m_model->selectcustom($s);
 
 		$data['jemaat']=array();
@@ -52,6 +52,8 @@ class Api extends CI_Controller {
 		$data['aset_jemaat']=$q;
 		$data['num_aset_jemaat']=array();
 		$data['luas_aset_jemaat']=array();
+		$data['ls_klasis']=array();
+		$data['ls_jemaat']=array();
 
 		$total_aset=0;
 		$total_luas=0;
@@ -75,11 +77,16 @@ class Api extends CI_Controller {
 			$data['klasis'][$value->klasis_id]['num_aset']=$data['klasis'][$value->klasis_id]['num_aset']+$value->num_aset;
 			$data['jemaat'][]=$value->jemaat;
 
+			$data['ls_klasis'][$value->klasis_id]=array('id'=>$value->klasis_id, 'name'=>$value->klasis);
+			$data['ls_jemaat'][$value->klasis_id][$key]=array('id'=> $value->jemaat_id, 'name'=> $value->jemaat, 'num_aset'=> $value->num_aset,  'percentage_aset'=> 0, 'num_aset_klasis'=>0,  'total_luas_tanah'=> $value->total_luas_tanah);
+
 			$data['num_aset_jemaat'][]=$value->num_aset;
 			$data['luas_aset_jemaat'][]=$value->total_luas_tanah;
 
 			$total_aset=$total_aset+$value->num_aset;
 			$total_luas=$total_luas+$value->total_luas_tanah;
+
+
 		}
 
 		//hitung aset klasis dulu
@@ -91,6 +98,19 @@ class Api extends CI_Controller {
 			}
 
 			$data['klasis'][$key]['percentage']=$percentage;
+
+
+			if(isset($data['ls_jemaat'][$key])){
+				foreach ($data['ls_jemaat'][$key] as $key1 => $value1) {
+					# code...
+					$percentage_perJemaat=0;
+					if($value1['num_aset'] >0 && $value['num_aset'] > 0){
+						$percentage_perJemaat=round($value1['num_aset']/$value['num_aset']*100, 2);
+					}
+					$data['ls_jemaat'][$key][$key1]['percentage_aset']=$percentage_perJemaat;
+					$data['ls_jemaat'][$key][$key1]['num_aset_klasis']=$value['num_aset'];
+				}
+			}
 
 		}
 

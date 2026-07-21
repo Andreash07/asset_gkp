@@ -238,7 +238,7 @@ $this->load->view('layout/footer');
 <script>
 var marker;
 var map;
-var autocomplete;
+var autocompleteMap;
 
 function initMap() {
 
@@ -261,18 +261,18 @@ function initMap() {
     });
 
     // autocomplete search
-    autocomplete = new google.maps.places.Autocomplete(
+    autocompleteMap = new google.maps.places.Autocomplete(
         document.getElementById('searchAlamat')
     );
 
     // batasi ke indonesia (optional)
-    autocomplete.setComponentRestrictions({
+    autocompleteMap.setComponentRestrictions({
         country: ["id"]
     });
 
-    autocomplete.addListener('place_changed', function() {
+    autocompleteMap.addListener('place_changed', function() {
 
-        var place = autocomplete.getPlace();
+        var place = autocompleteMap.getPlace();
 
         if (!place.geometry)
             return;
@@ -332,12 +332,12 @@ function ambilLokasi() {
     document.getElementById('lat').value = lat;
     document.getElementById('lng').value = lng;
 
-    alert('Lat: ' + lat + '\nLng: ' + lng);
+    //alert('Lat: ' + lat + '\nLng: ' + lng);
     $('#id_label_change').hide();
 }
 
 	
-	$(document).on('change','[name=kategori_atas_nama]', function(){
+	$(document).on('change blur','[name=kategori_atas_nama]', function(){
 		val=$(this).val().toLowerCase()
 		//const text_show = ["mitra", "negara", "badan pelayanan gkp", "pribadi"];
 		const text_show = ["3", "4", "5", "7"];
@@ -349,11 +349,16 @@ function ambilLokasi() {
 			$('#autocomplete-custom-append').hide()			
 		}
 	})
-	kategori_atas_nama_text=$.parseJSON('<?= json_encode($kategori_atas_nama_text);?>')
+	kategori_atas_nama_text=$.parseJSON('<?= json_encode($kategori_atas_nama_text, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT );?>')
 	$('#autocomplete-custom-append').autocomplete({
 		minChars: 1,
 		lookup: kategori_atas_nama_text
 	});
+
+$(document).ready(function() {
+    $('select').select2();
+});
+
 </script>
 
 <script async defer

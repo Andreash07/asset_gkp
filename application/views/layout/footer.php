@@ -160,6 +160,7 @@
     <!--<script src="<?=base_url();?>/build/js/pagination.js"></script>-->
 
     <script src="<?=base_url();?>/vendors/devbridge-autocomplete/dist/jquery.autocomplete.js"></script>
+    <script src="<?=base_url();?>/vendors/select2/dist/js/select2.min.js"></script>
 
 
 

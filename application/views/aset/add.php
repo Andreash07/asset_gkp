@@ -65,6 +65,7 @@ $this->load->view('layout/header');
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
 			          			<select class="form-control" name="kategori_atas_nama">
 			          				<?php 
+			          				$hide_text="display: none;";
 			          					foreach ($kategori_kepemilikan as $key2 => $value2) {
 			          						# code...
 			          						$selected="";
@@ -77,6 +78,7 @@ $this->load->view('layout/header');
 			          					}
 			          				?>
 			          			</select>
+			          			<input type="text" name="kategori_atas_nama_text" id="autocomplete-custom-append" class="form-control" style="<?=$hide_text;?>" placeholder="YPTK/YBRS/GPIB/GKI/TNI/Pemprov/dll" value="">
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -218,7 +220,7 @@ $this->load->view('layout/footer');
 <script>
 var marker;
 var map;
-var autocomplete;
+var autocompleteMap;
 
 function initMap() {
 
@@ -240,19 +242,19 @@ function initMap() {
         draggable: true
     });
 
-    // autocomplete search
-    autocomplete = new google.maps.places.Autocomplete(
+    // autocompleteMap search
+    autocompleteMap = new google.maps.places.Autocomplete(
         document.getElementById('searchAlamat')
     );
 
     // batasi ke indonesia (optional)
-    autocomplete.setComponentRestrictions({
+    autocompleteMap.setComponentRestrictions({
         country: ["id"]
     });
 
-    autocomplete.addListener('place_changed', function() {
+    autocompleteMap.addListener('place_changed', function() {
 
-        var place = autocomplete.getPlace();
+        var place = autocompleteMap.getPlace();
 
         if (!place.geometry)
             return;
@@ -334,13 +336,28 @@ function ambilLokasi() {
 
 
 
-  $("#uploadzone1").dropzone({ 
-    url: "<?=base_url();?>aset/upload_lampiran",
-    uploadMultiple: false,
-    maxFilesize: 6,
-    acceptedFiles: 'image/*'
+$(document).on('change blur','[name=kategori_atas_nama]', function(){
+		val=$(this).val().toLowerCase()
+		//const text_show = ["mitra", "negara", "badan pelayanan gkp", "pribadi"];
+		const text_show = ["3", "4", "5", "7"];
+		if(text_show.includes(val) == true){
+			$('#autocomplete-custom-append').show()
+		}
+		else{
+			$('#autocomplete-custom-append').val('')			
+			$('#autocomplete-custom-append').hide()			
+		}
+	})
+	kategori_atas_nama_text=$.parseJSON('<?= json_encode($kategori_atas_nama_text, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);?>')
+	$('#autocomplete-custom-append').autocomplete({
+		minChars: 1,
+		lookup: kategori_atas_nama_text
+	});
 
-  });
+
+$(document).ready(function() {
+    $('select').select2();
+});
 
 </script>
 
