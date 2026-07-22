@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <link rel="icon" type="image/png" href="<?=base_url();?>assets/images/logo-gkp_compressed.png" sizes="96x96" />
   <style>
     :root {
       --color-primary: #1E3A5F;
@@ -507,9 +508,10 @@
     <!-- ============= LEFT / BRAND ============= -->
     <section class="brand" aria-labelledby="brand-title" data-testid="brand-section">
       <header class="brand-header">
-        <div class="brand-logo" aria-hidden="true">
-          <i class="bi bi-building-check"></i>
-        </div>
+        <!--<div class="brand-logo" aria-hidden="true">-->
+          <!--<i class="bi bi-building-check"></i>-->
+          <img src="<?=base_url();?>assets/images/logo-gkp_compressed.png">
+        <!--</div>-->
         <span class="brand-name">Gereja Kristen Pasundan</span>
       </header>
 
