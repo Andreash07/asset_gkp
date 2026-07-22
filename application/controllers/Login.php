@@ -25,7 +25,8 @@ class Login extends CI_Controller {
     }
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$data=array();
+		$this->load->view('login');
 	}
 }
 

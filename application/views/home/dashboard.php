@@ -248,7 +248,57 @@ $this->load->view('layout/header');
             </div>
       	</div>
       </div>
-      <div class="col-md-8 col-sm-8 col-xs-12">
+      <div class="col-md-4 col-sm-4 col-xs-12">
+    		<div class="x_panel tile fixed_height_390">
+            <div class="x_title">
+	          	<h2>Jemaat - Aset Terbanyak</h2>
+	          	<ul class="nav navbar-right panel_toolbox">
+	                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                </li>
+	                <li class="dropdown">
+	                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+	                  <ul class="dropdown-menu" role="menu">
+	                    <li><a href="#">Settings 1</a>
+	                    </li>
+	                    <li><a href="#">Settings 2</a>
+	                    </li>
+	                  </ul>
+	                </li>
+	                <li><a class="close-link"><i class="fa fa-close"></i></a>
+	                </li>
+	          	</ul>
+	          	<div class="clearfix"></div>
+            </div>
+            <div class="x_content" id="x_content_aset_klasis">
+            </div>
+      	</div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-12">
+    		<div class="x_panel tile fixed_height_390">
+            <div class="x_title">
+	          	<h2>Jemaat - Aset Terbanyak</h2>
+	          	<ul class="nav navbar-right panel_toolbox">
+	                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                </li>
+	                <li class="dropdown">
+	                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+	                  <ul class="dropdown-menu" role="menu">
+	                    <li><a href="#">Settings 1</a>
+	                    </li>
+	                    <li><a href="#">Settings 2</a>
+	                    </li>
+	                  </ul>
+	                </li>
+	                <li><a class="close-link"><i class="fa fa-close"></i></a>
+	                </li>
+	          	</ul>
+	          	<div class="clearfix"></div>
+            </div>
+            <div class="x_content" id="x_content_aset_klasis">
+            </div>
+      	</div>
+      </div>
+      <!--<div class="col-md-8 col-sm-8 col-xs-12">
       	<div class="x_panel tile fixed_height_390">
           <div class="x_title">
             	<h2>Aset per Jemaat GKP</h2>
@@ -258,7 +308,7 @@ $this->load->view('layout/header');
       			<div id="mainb" style="height:350px;"><i class="fa fa-circle-o-notch fa-spin fa-4x" style="margin-left:40%;"></i></div>
           </div>
     		</div>
-      </div>
+      </div>-->
     </div>
 
   <div class="row" id="row_aset_jemaatperklasis">
