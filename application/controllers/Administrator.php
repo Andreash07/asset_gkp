@@ -118,7 +118,7 @@ class Administrator extends CI_Controller {
 //users dulu
 		$param=array();
 		$param['l12jhlaslaksljd']=$this->input->post('username');
-		$param['iausoq12eu809asod']=$this->input->post('amjsdhalksdnlk');
+		$param['iausoq12eu809asod']=md5($this->input->post('amjsdhalksdnlk'));
 		$param['status']=$this->input->post('status');
 		$i=$this->m_model->insertgetid($param, 'users');
 
