@@ -34,7 +34,7 @@
 
               <span>Selamat Datang,</span>
 
-              <h2>No Login</h2>
+              <h2><?=$this->session->userdata('user')->firstname;?></h2>
 
             </div>
 
@@ -72,18 +72,13 @@
                   </ul>
 
                 </li>
+              -->
 
-                <li><a><i class="fa fa-archive"></i> Master <span class="fa fa-chevron-down"></span></a>
-
+                <li><a><i class="fa fa-server"></i> Administrator <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-
-                    <li><a href="form.html">Data Profesi</a></li>
-
-                    <li><a href="form_advanced.html">Data Hobi</a></li>
-
+                    <li><a href="<?=base_url();?>administrator/users">User</a></li>
                   </ul>
-
-                </li>-->
+                </li>
                 <?php 
                 //print_r($this->session->userdata()); die();
                 /*if($this->session->userdata('userdata')->id != 22){
@@ -690,7 +685,7 @@
 
 
 
-              <li role="presentation" class="dropdown">
+              <li role="presentation" class="dropdown" style="display: none;">
 
                 <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
 

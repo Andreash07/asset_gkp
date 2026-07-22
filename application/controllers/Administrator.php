@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Aset extends CI_Controller {
+class Administrator extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -29,23 +29,21 @@ class Aset extends CI_Controller {
 
 
     }
-	public function index()
+	public function index(){
+		die('Access Denied!');
+	}
+	public function users($action=null, $recid=null)
 	{
 		$data=array();
 
 		#$s=$this->m_model->selectas('id >0', null, 'assets');
-		$s=$this->m_model->selectcustom("select A.*, B.CompName as jemaat , C.name as klasis, D.name as kategori_atas_nama, E.name as status_hak_milik, F.name as jenis_dokumen_kepemilikan
-											from assets A 
-											left join jemaat B on B.id = A.jemaat_id
-											left join klasis C on C.id = B.klasis_id
-											left join kategori_kepemilikan D on D.id = A.kategori_atas_nama
-											left join jenis_hak_milik E on E.id = A.status_hak_milik
-											left join jenis_dokumen_kepemilikan F on F.id = A.jenis_dokumen_kepemilikan
-											where A.id >0");
+		$s=$this->m_model->selectcustom("select B.*, A.l12jhlaslaksljd as username, A.status
+					from users A
+					join profiles B on A.id = B.user_id");
 		$data['data']=$s;
-		$this->load->view('aset/index', $data);
+		$this->load->view('administrator/users/index', $data);
 	}
-	public function edit($id=0){
+	public function users_edit($id=0){
 		$data=array();
 		$s="select A.*
 			from assets A 
@@ -75,28 +73,10 @@ class Aset extends CI_Controller {
 
 	}
 
-	public function add(){
+	public function users_add(){
 		$data=array();
-		$qjemaat=$this->m_model->selectas('id >=0 ', null, 'jemaat');
-		$data['jemaat']=$qjemaat;
 
-		$data['jenis_dokumen_kepemilikan']=$this->m_model->selectas('id>=0', null, 'jenis_dokumen_kepemilikan');
-		$data['kategori_kepemilikan']=$this->m_model->selectas('id>=0', null, 'kategori_kepemilikan');
-		$data['jenis_hak_milik']=$this->m_model->selectas('id>=0', null, 'jenis_hak_milik');
-
-		$data['kategori_atas_nama_text'][]=array('value'=>'YBRS');
-		$data['kategori_atas_nama_text'][]=array('value'=>'YBPK');
-		$data['kategori_atas_nama_text'][]=array('value'=>'YPT');
-		$data['kategori_atas_nama_text'][]=array('value'=>'YKB');
-
-		$s2=$this->m_model->selectcustom('select * from assets where kategori_atas_nama_text is not NULL && kategori_atas_nama_text !="" group by kategori_atas_nama_text');
-		foreach ($s2 as $key => $value) {
-			# code...
-			$data['kategori_atas_nama_text'][]=array('value'=> $value->kategori_atas_nama_text);
-		}
-		
-		$this->load->view('aset/add', $data);
-
+		$this->load->view('administrator/users/add', $data);
 	}
 
 	public function perbarui(){
@@ -130,35 +110,29 @@ class Aset extends CI_Controller {
 
 	}
 
-	public function simpan(){
+	public function users_simpan(){
 		$data=array();
-		$param=array();
 
 		#$recid=$this->input->post('recid');
 		#print_r($this->input->post());die();
-
-		$param['peruntukan_tanah']=$this->input->post('peruntukan_tanah');
-		$param['atas_nama']=$this->input->post('atas_nama');
-		$param['kategori_atas_nama']=$this->input->post('kategori_atas_nama');
-		$param['kategori_atas_nama_text']=$this->input->post('kategori_atas_nama_text');
-		$param['jenis_dokumen_kepemilikan']=$this->input->post('jenis_dokumen_kepemilikan');
-		$param['status_hak_milik']=$this->input->post('status_hak_milik');
-		$param['luas']=$this->input->post('luas');
-		$param['catatan']=$this->input->post('catatan');
-		$param['sts_sertifikat_disinode']=$this->input->post('sts_sertifikat_disinode');
-		$param['keterangan']=$this->input->post('keterangan');
-		$param['alamat_lokasi']=$this->input->post('alamat_lokasi');
-		$param['langtitude']=$this->input->post('lat');
-		$param['longtitude']=$this->input->post('lng');
-		$param['jemaat_id']=$this->input->post('jemaat_pengelola');
-		$param['no_dokumen']=$this->input->post('no_dokumen');
+//users dulu
+		$param=array();
+		$param['l12jhlaslaksljd']=$this->input->post('username');
+		$param['iausoq12eu809asod']=$this->input->post('amjsdhalksdnlk');
+		$param['status']=$this->input->post('status');
+		$i=$this->m_model->insertgetid($param, 'users');
 
 
-		#$u=$this->m_model->updateas('id', $recid, $param, 'assets');
-		$i=$this->m_model->insertgetid($param, 'assets');
-		redirect(base_url().'aset/');
-		//$this->load->view('aset/edit', $data);
+		$param2=array();
+		$param2['firstname']=$this->input->post('firstname');
+		$param2['lastname']=$this->input->post('lastname');
+		$param2['gender']=$this->input->post('gender');
+		$param2['user_id']=$i;
 
+		$i2=$this->m_model->insertgetid($param2, 'profiles');
+
+
+		redirect(base_url().'administrator/users');
 	}
 
 	public function form_upload_lampiran(){

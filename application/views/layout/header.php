@@ -16,7 +16,7 @@
 
 
 
-    <title>Sinode GKP</title>
+    <title>Sistem Manajemen Aset - GKP</title>
 
 
 

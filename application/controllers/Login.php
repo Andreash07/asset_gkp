@@ -28,6 +28,34 @@ class Login extends CI_Controller {
 		$data=array();
 		$this->load->view('login');
 	}
+
+	public function authenticating ()
+	{
+		$data=array();
+		$username=$this->input->post('jashk12hashkjd');
+		$password=$this->input->post('i12u3asdlkh1j2lda');
+
+		//$check=$this->m_model->selectas2('l12jhlaslaksljd', $username, 'iausoq12eu809asod', $password, 'users');
+		$scheck="select B.*
+					from users A
+					join profiles B 
+					where A.l12jhlaslaksljd ='".$username."' && iausoq12eu809asod='".md5($password)."' ";
+		$check=$this->m_model->selectcustom($scheck);
+		#die(nl2br($scheck));
+
+		if(count($check)==1){
+			//succes login
+			$this->session->set_userdata(array('user'=>$check[0]));
+			$data['status']=1;
+			$data['error']=0;
+		}
+		else{
+			$data['status']=0;
+			$data['error']=1;	
+		}
+
+		echo json_encode($data);
+	}
 }
 
 

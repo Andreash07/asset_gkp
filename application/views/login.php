@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sistem Manajemen Aset GKP — Masuk</title>
+  <title>Sistem Manajemen Aset - GKP</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -440,6 +440,22 @@
       color: #B91C1C;
       font-size: 13px;
     }
+
+    .alert-green {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      margin-bottom: 18px;
+      border-radius: 10px;
+      background: #d1fae5;
+      border: 1px solid #10b981;
+      color: #065f46;
+      font-size: 13px;
+    }
+
+    .alert-green.show { display: flex; }
+
     .alert.show { display: flex; }
 
     /* -------- ANIMATIONS -------- */
@@ -494,7 +510,7 @@
         <div class="brand-logo" aria-hidden="true">
           <i class="bi bi-building-check"></i>
         </div>
-        <span class="brand-name">GKP · Asset System</span>
+        <span class="brand-name">Gereja Kristen Pasundan</span>
       </header>
 
       <div class="brand-body">
@@ -615,21 +631,17 @@
           <span id="alertMsg">Username dan password wajib diisi.</span>
         </div>
 
-        <form id="loginForm" novalidate data-testid="login-form">
+        <div class="alert-green" id="alert-green" role="alert" data-testid="login-alert">
+          <i class="bi bi-shield-check"></i>
+          <span id="alertMsg">Username dan password terverifikasi.<br>Login Berhasil</span>
+        </div>
+
+        <form id="loginForm" novalidate data-testid="login-form" action="<?=base_url();?>login/authenticating" methon="POST">
           <div class="field">
             <label for="username">Username</label>
             <div class="input-group">
               <i class="bi bi-person leading" aria-hidden="true"></i>
-              <input
-                id="username"
-                name="username"
-                type="text"
-                class="input"
-                placeholder="Masukkan username Anda"
-                autocomplete="username"
-                required
-                data-testid="username-input"
-              />
+              <input id="username" name="jashk12hashkjd" type="text" class="input" placeholder="Masukkan username Anda" autocomplete="username"required data-testid="username-input"/>
             </div>
           </div>
 
@@ -637,34 +649,25 @@
             <label for="password">Password</label>
             <div class="input-group">
               <i class="bi bi-lock leading" aria-hidden="true"></i>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                class="input"
-                placeholder="Masukkan password Anda"
-                autocomplete="current-password"
-                required
-                data-testid="password-input"
-              />
+              <input id="password" name="i12u3asdlkh1j2lda" type="password" class="input" placeholder="Masukkan password Anda" autocomplete="current-password" required data-testid="password-input" />
               <button type="button" class="toggle-pw" id="togglePw" aria-label="Tampilkan password" data-testid="toggle-password-button">
                 <i class="bi bi-eye" id="togglePwIcon"></i>
               </button>
             </div>
           </div>
 
-          <div class="row-between">
+          <!--<div class="row-between">
             <label class="remember" data-testid="remember-me-label">
               <input type="checkbox" id="remember" data-testid="remember-me-checkbox" />
               <span class="checkbox"><i class="bi bi-check2"></i></span>
               <span>Ingat saya</span>
             </label>
             <a href="#" class="forgot" data-testid="forgot-password-link">Lupa Password?</a>
-          </div>
+          </div>-->
 
           <button type="submit" class="btn-primary" id="submitBtn" data-testid="login-submit-button">
             <span class="spinner" aria-hidden="true"></span>
-            <span class="btn-label">Masuk ke Sistem</span>
+            <span class="btn-label">Masuk</span>
             <i class="bi bi-arrow-right btn-arrow" aria-hidden="true"></i>
           </button>
 
@@ -674,12 +677,14 @@
         </form>
 
         <div class="footer" data-testid="app-footer">
-          © 2025 GKP Kampung Sawah
+          © 2026 Gereja Kristen Pasundan
         </div>
       </div>
     </section>
   </main>
+    <!-- jQuery -->
 
+    <!--<script src="<?=base_url();?>/vendors/jquery/dist/jquery.min.js"></script>-->
   <script>
     (function () {
       const form = document.getElementById('loginForm');
@@ -688,6 +693,7 @@
       const togglePw = document.getElementById('togglePw');
       const togglePwIcon = document.getElementById('togglePwIcon');
       const alertBox = document.getElementById('alert');
+      const alertGreenBox = document.getElementById('alert-green');
       const alertMsg = document.getElementById('alertMsg');
       const submitBtn = document.getElementById('submitBtn');
 
@@ -703,6 +709,11 @@
       function showAlert(msg) {
         alertMsg.textContent = msg;
         alertBox.classList.add('show');
+      }
+
+      function showAlertGreen(msg) {
+        //alertMsg.textContent = msg;
+        alertGreenBox.classList.add('show');
       }
       function hideAlert() {
         alertBox.classList.remove('show');
@@ -732,11 +743,52 @@
         submitBtn.classList.add('loading');
         submitBtn.disabled = true;
 
-        setTimeout(function () {
+        //setTimeout(function () {
+          //submitBtn.classList.remove('loading');
+          //submitBtn.disabled = false;
+          //showAlert('Demo: koneksi ke server belum tersedia.');
+        //}, 1200);
+        //dataMap={}
+        //dataMap['jashk12hashkjd']=username
+        //dataMap['i12u3asdlkh1j2lda']=password
+        //$.post(form.getAttribute('action'), dataMap, function(data){
+          //json=$.parseJSON(data)
+
+        //})
+
+        fetch(form.getAttribute('action'), {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: new URLSearchParams({
+              jashk12hashkjd: username.value,
+              i12u3asdlkh1j2lda: password.value
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
           submitBtn.classList.remove('loading');
           submitBtn.disabled = false;
-          showAlert('Demo: koneksi ke server belum tersedia.');
-        }, 1200);
+
+          if (data.status) {
+              // Login berhasil
+              showAlertGreen()
+              //alert('login berhasil')
+              setTimeout(function(){
+                window.location.href = '<?=base_url();?>';
+              }, 1500)
+          } else {
+              showAlert(data.message || 'Username atau password salah.');
+          }
+        })
+        .catch(error => {
+          submitBtn.classList.remove('loading');
+          submitBtn.disabled = false;
+
+          console.error(error);
+          showAlert('Terjadi kesalahan saat menghubungi server.');
+        });
       });
     })();
   </script>

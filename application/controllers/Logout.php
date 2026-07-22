@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Page extends CI_Controller {
+class Logout extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -18,26 +18,19 @@ class Page extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
+
 	public function  __construct()
     {
         parent::__construct();
-
-        #if(!isset($this->session->userdata('user')->id) ){
-        #	redirect(base_url());
-        #}
-
-
     }
 	public function index()
 	{
-		die('Access Denied!');
-	}
-
-	public function NotFound()
-	{
 		$data=array();
-		$this->load->view('page/NotFound', $data);
+    	$param=array();
+        $this->session->unset_userdata('user');
+        header('Location:'.base_url());
 	}
-
-
 }
+
+
+?>

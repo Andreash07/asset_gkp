@@ -23,8 +23,9 @@ class Api extends CI_Controller {
     {
         parent::__construct();
 
-        if(!isset($this->session->userdata('userdata')->id) ){
-        	#redirect(base_url());
+        if(!isset($this->session->userdata('user')->id) ){
+        	//redirect(base_url().'login');
+        	die('Access Denied!');
         }
 
 

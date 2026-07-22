@@ -18,6 +18,17 @@ class Home extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
+	public function  __construct()
+    {
+        parent::__construct();
+
+        if(!isset($this->session->userdata('user')->id) ){
+        	redirect(base_url().'login');
+        }
+
+
+    }
+
 	public function index()
 	{
 		$data=array();
