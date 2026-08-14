@@ -49,15 +49,6 @@ $this->load->view('layout/header');
 				          	</div>
 				        </div>
 				        <div class="form-group">
-				          	<label class="control-label col-md-3 col-sm-3 col-xs-12">
-				          		Atas Nama
-				          		<span class="required">*</span>
-				          	</label>
-			          		<div class="col-md-9 col-sm-9 col-xs-12">
-				            	<input type="text" class="form-control" placeholder="Atas Nama Aset secara Administrasi" name="atas_nama" value="">
-				          	</div>
-				        </div>
-				        <div class="form-group">
 				          	<label class="control-label col-md-3 col-sm-3 col-xs-12" title="Kategori Atas Nama Kepemilikan">
 				          		Kategori Atas Nama
 				          		<span class="required">*</span>
@@ -78,7 +69,16 @@ $this->load->view('layout/header');
 			          					}
 			          				?>
 			          			</select>
-			          			<input type="text" name="kategori_atas_nama_text" id="autocomplete-custom-append" class="form-control" style="<?=$hide_text;?>" placeholder="YPTK/YBRS/GPIB/GKI/TNI/Pemprov/dll" value="">
+			          			<input type="text" name="kategori_atas_nama_text"  class="form-control" style="<?=$hide_text;?>" placeholder="YPTK/YBRS/GPIB/GKI/TNI/Pemprov/dll" value="">
+				          	</div>
+				        </div>
+				        <div class="form-group">
+				          	<label class="control-label col-md-3 col-sm-3 col-xs-12">
+				          		Atas Nama
+				          		<span class="required">*</span>
+				          	</label>
+			          		<div class="col-md-9 col-sm-9 col-xs-12">
+				            	<input type="text" class="form-control" placeholder="Atas Nama Aset secara Administrasi" name="atas_nama" value="" id="autocomplete-custom-append">
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -341,11 +341,11 @@ $(document).on('change blur','[name=kategori_atas_nama]', function(){
 		//const text_show = ["mitra", "negara", "badan pelayanan gkp", "pribadi"];
 		const text_show = ["3", "4", "5", "7"];
 		if(text_show.includes(val) == true){
-			$('#autocomplete-custom-append').show()
+			//$('#autocomplete-custom-append').show()
 		}
 		else{
-			$('#autocomplete-custom-append').val('')			
-			$('#autocomplete-custom-append').hide()			
+			//$('#autocomplete-custom-append').val('')			
+			//$('#autocomplete-custom-append').hide()			
 		}
 	})
 	kategori_atas_nama_text=$.parseJSON('<?= json_encode($kategori_atas_nama_text, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);?>')
@@ -361,6 +361,7 @@ $(document).ready(function() {
 
 </script>
 
+
 <script async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhgXYI0RimdQgc9ZBbyQqzSdYSTo4YnwY&libraries=places&callback=initMap&version=<?=microtime();?>">
-</script>
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqPHsLQcjob80TLNC2egJKVxPLbPxU9wg&libraries=places&callback=initMap&version=<?=microtime();?>">
+</script> <!-- api mikgoogle -->
