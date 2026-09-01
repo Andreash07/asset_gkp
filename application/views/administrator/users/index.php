@@ -18,7 +18,7 @@ $this->load->view('layout/header');
                 <th class="text-center" style="width: 30px;">#</th>
                 <th class="text-center">Nama</th>
                 <th class="text-center">Ringkasan</th>
-                <th class="text-center">Hak Akses</th>
+                <th class="text-center">User Role</th>
                 <th class="text-center" style="width: 100px;">Tindakan</th>
               </tr>
             </thead>
@@ -38,6 +38,8 @@ $this->load->view('layout/header');
                   $status='Tidak Aktif';
                   $status_color='red';
                 }
+
+
               ?>
                 <tr>
                   <td class="text-center" style="width: 30px;"><?=$i++;?></td>
@@ -51,7 +53,22 @@ $this->load->view('layout/header');
                     
                   </td>
                   <td>
-                    
+                    <?php 
+                      if($value->usertype ==2){
+                    ?>    
+                    <select id="role_<?=$value->id;?>" name="role" recid="<?=$value->id;?>" akun="<?=$value->firstname;?> <?=$value->lastname;?>" class="form-control">
+                      <option value="1" <?php if($value->user_role =='1') echo 'selected'; ?> >Operator</option>
+                      <option value="2" <?php if($value->user_role =='2') echo 'selected'; ?> >Validator</option>
+                      <option value="3" <?php if($value->user_role =='3') echo 'selected'; ?> >Administrator</option>
+                    </select>
+                    <?php 
+                      }
+                      else{
+                    ?>
+                      <b>Administrator</b>  
+                    <?php 
+                      }
+                    ?>
                   </td>
                   <td class="text-center" style="width: 100px;">
                     <!--<a class="btn btn-warning btn-xs" title="Perbarui Data" href="<?=base_url().'administrator/users/edit/'.$value->id;?>"><i class="fa fa-pencil"></i></a>
@@ -163,6 +180,38 @@ $this->load->view('layout/footer');
   })
   
   //$(document).on('blur change', '[id^=rename_att]', function(e){
+  $(document).on('change', '[id^=role_]', function(e){
+    if(!confirm('Apakah Anda yakin mau mengubah User Role dari Akun ini? ('+$(this).attr('akun')+')')){
+      return false
+    }
+    dataMap={}
+    dataMap['value']=$(this).val()
+    dataMap['recid']=$(this).attr('recid')
+    url="<?=base_url();?>/administrator/update_role"
+    $.post(url, dataMap, function(data){
+      json=$.parseJSON(data)
+      if(json.status==1){
+        iziToast.success({
+          title: "Berhasil Mengubah User Role!",
+          message: '',
+          position: "topRight",
+          class: "iziToast-succes",
+
+        });
+      }else{
+        iziToast.error({
+          title: "Gagal Mengubah User Role!",
+          message: '',
+          position: "topRight",
+          class: "iziToast-succes",
+
+        });
+      }
+
+    })
+
+  })
+
   $(document).on('click', '[id^=btn_save_rename_att]', function(e){
     token=$(this).attr('token');
     value=$('#txt_field_rename_att'+$(this).attr('uniq')).val();

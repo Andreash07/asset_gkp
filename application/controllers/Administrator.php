@@ -37,7 +37,7 @@ class Administrator extends CI_Controller {
 		$data=array();
 
 		#$s=$this->m_model->selectas('id >0', null, 'assets');
-		$s=$this->m_model->selectcustom("select B.*, A.l12jhlaslaksljd as username, A.status
+		$s=$this->m_model->selectcustom("select B.*, A.l12jhlaslaksljd as username, A.status, A.usertype, A.user_role
 					from users A
 					join profiles B on A.id = B.user_id");
 		$data['data']=$s;
@@ -120,6 +120,8 @@ class Administrator extends CI_Controller {
 		$param['l12jhlaslaksljd']=$this->input->post('username');
 		$param['iausoq12eu809asod']=md5($this->input->post('amjsdhalksdnlk'));
 		$param['status']=$this->input->post('status');
+		$param['usertype']='2';//regular user
+		$param['user_role']='1';//operator
 		$i=$this->m_model->insertgetid($param, 'users');
 
 
@@ -311,6 +313,26 @@ class Administrator extends CI_Controller {
 
 		fpassthru($fp);
 		exit;
+	}
+
+	public function update_role(){
+		$data=array();
+		$recid=$this->input->post('recid');
+		$role=$this->input->post('value');
+		$param=array();
+		$param['user_role']=$role;
+		$u=$this->m_model->updateas('id', $recid, $param, 'users');
+
+		if($u){
+			$data['status']=1;
+			$data['msg']='202 OK';
+		}
+		else {
+			$data['status']=0;
+			$data['msg']='505 Error';
+		}
+		echo json_encode($data);
+
 	}
 }
 
