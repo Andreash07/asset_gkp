@@ -36,7 +36,7 @@ class Login extends CI_Controller {
 		$password=$this->input->post('i12u3asdlkh1j2lda');
 
 		//$check=$this->m_model->selectas2('l12jhlaslaksljd', $username, 'iausoq12eu809asod', $password, 'users');
-		$scheck="select B.*
+		$scheck="select B.*, A.usertype, A.user_role
 					from users A
 					join profiles B on B.user_id = A.id
 					where A.l12jhlaslaksljd ='".$username."' && iausoq12eu809asod='".md5($password)."' ";

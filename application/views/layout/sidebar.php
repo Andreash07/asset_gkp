@@ -59,7 +59,13 @@
               <ul class="nav side-menu">
 
                 <li><a href="<?=base_url();?>"><i class="fa fa-home"></i> Home </a>
-                <li><a href="<?=base_url();?>aset"><i class="fa fa-map"></i> Aset </a>
+                <?php 
+                  if(in_array($this->session->userdata('user')->user_role, array(1,2,3)) ){
+                ?>
+                  <li><a href="<?=base_url();?>aset"><i class="fa fa-map"></i> Aset </a>
+                <?php 
+                  }
+                ?>
 
                 <!--  <ul class="nav child_menu">
 
@@ -73,12 +79,17 @@
 
                 </li>
               -->
-
+              <?php 
+                if(in_array($this->session->userdata('user')->user_role, array(3)) ){
+              ?>              
                 <li><a><i class="fa fa-server"></i> Administrator <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="<?=base_url();?>administrator/users">User</a></li>
                   </ul>
                 </li>
+              <?php 
+              }
+              ?>
                 <?php 
                 //print_r($this->session->userdata()); die();
                 /*if($this->session->userdata('userdata')->id != 22){

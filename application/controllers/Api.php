@@ -42,7 +42,7 @@ class Api extends CI_Controller {
 		//get_data perjamaat
 		$s="select C.name as klasis, A.klasis_id, A.CompName as jemaat, A.id as jemaat_id, COUNT(B.id) as num_aset, SUM(B.luas) as total_luas_tanah
 				from jemaat A 
-				left join assets B on B.jemaat_id = A.id 
+				left join assets B on B.jemaat_id = A.id && B.approved=1 
 				left Join klasis C on C.id = A.klasis_id
 				group by A.id
 				order by num_aset DESC, A.id;";

@@ -338,6 +338,41 @@ class Aset extends CI_Controller {
 		fpassthru($fp);
 		exit;
 	}
+
+	public function approving(){
+		$data=array();
+		$value=$this->input->post('value');
+		$recid=$this->input->post('token');
+
+		$param=array();
+		$param['approved']=$value;
+		$param['approved_at']=date('Y-m-d H:i:s');
+
+		$u=$this->m_model->updateas("md5(CONCAT('asek21gjhd!^d',id)) = '".$recid."'", NULL, $param, 'assets'); 
+		if($u){
+			$lbl="Tidak diketahui Status";
+			$data['class_alert']="iziToast-error";
+			if($value==1){
+				$lbl="aset Disetujui";
+				$data['class_alert']="iziToast-success";
+			}
+			else if($value==2){
+				$lbl="aset Tidak Disetujui";
+				$data['class_alert']="iziToast-Warning";
+			}
+
+			$data['sts']=1;
+			$data['msg']="Berhasil, ".$lbl;
+		}
+		else{
+			$data['sts']=0;
+			$data['msg']="Gagal, update status aprrove aset.";
+			$data['class_alert']="iziToast-error";
+		}
+
+		echo json_encode($data);
+
+	}
 }
 
 

@@ -50,6 +50,34 @@ $this->load->view('layout/header');
                     <a class="btn btn-warning btn-xs" title="Perbarui Data" href="<?=base_url().'aset/edit/'.$value->id;?>"><i class="fa fa-pencil"></i></a>
                     <div class="divider"></div>
                     <div class="btn btn-danger btn-xs" title="Hapus Data" id="btn_hapus-Mutasi<?=$value->id;?>" href="<?=base_url().'aset/detele?token='.md5($value->id.'jHGSj2898!aA');?>"><i class="fa fa-trash"></i></div>
+                    <div class="divider"></div>
+                    <?php 
+                      if(in_array($this->session->userdata('user')->user_role, array(2,3))){
+                        $checked="";
+                        if($value->approved==1){
+                          $checked="checked";
+                        }
+                    ?>
+                      <select name="approve_asset<?=$value->id;?>" id="approve_asset<?=$value->id;?>" class="form-control" token="<?=md5('asek21gjhd!^d'.$value->id);?>">
+                        <option value="0" style="color: gray;" <?=$checked;?>>Belum Disetujui</option>
+                        <option value="1" style="color: green;" <?=$checked;?>>Disetujui</option>
+                        <option value="2" style="color: red;" <?=$checked;?>>Tidak Disetujui</option>
+                      </select>
+                    <?php 
+                      }else{
+                        $lbl_approved='<label class="label label-warning">Belum Disetujui</label>';
+                        if($value->approved==1){
+                          $lbl_approved='<label class="label label-success">Disetujui</label>';
+                        }
+                        else if($value->approved==2){
+                          $lbl_approved='<label class="label label-danger">Tidak Disetujui</label>';
+                        }
+
+                    ?>
+                      <?=$lbl_approved;?>
+                    <?php 
+                      }
+                    ?>
 
                   </td>
                 </tr>
@@ -141,7 +169,7 @@ $this->load->view('layout/footer');
           title: "Gagal Mengubah Hak Akses Lampiran!",
           message: 'Silahkan hubung Administrator!',
           position: "topRight",
-          class: "iziToast-danger",
+          class: "iziToast-error",
 
         });
       }
@@ -183,12 +211,40 @@ $this->load->view('layout/footer');
           title: "Gagal Mengubah Nama Lampiran!",
           message: 'Silahkan hubung Administrator!',
           position: "topRight",
-          class: "iziToast-danger",
+          class: "iziToast-error",
 
         });
       }
     })
+  })
 
+  $(document).on('change', '[id^=approve_asset]', function(e){
+    token=$(this).attr('token');
+    value=$(this).val();
+    dataMap={}
+    dataMap['token']=token
+    dataMap['value']=value
+    $.post('<?=base_url();?>aset/approving', dataMap, function(data){
+      json=$.parseJSON(data)
+      if(json.sts=1){
+        iziToast.success({
+          title: json.msg,
+          message: '',
+          position: "topRight",
+          class: json.class_alert,
 
+        });
+
+      }
+      else{
+        iziToast.error({
+          title: json.msg,
+          message: 'Silahkan hubung Administrator!',
+          position: "topRight",
+          class: json.class_alert,
+
+        });
+      }
+    })
   })
 </script>

@@ -34,23 +34,24 @@ class Home extends CI_Controller {
 		$data=array();
 		$s="select B.name as nama_kategori_kepemilikan, B.initials as initials_kategori_kepemilikan, B.id as kategori_kepemilikan, COUNT(A.id) as total_aset, SUM(A.luas) as total_luas_tanah, A.jenis_dokumen_kepemilikan, C.name as nama_jenis_dokumen 
 				from kategori_kepemilikan B
-				left join assets A  on B.id = A.kategori_atas_nama
+				left join assets A  on B.id = A.kategori_atas_nama && A.approved=1
 				left join jenis_dokumen_kepemilikan C on C.id = A.jenis_dokumen_kepemilikan
 				group by B.id, C.id
 				order by B.priority;";
-		$q=$this->m_model->selectcustom($s);
+		$q=$this->m_model->selectcustom($s); //die($s);
 
 		$sjenis_dokumen_kepemilikan=$this->m_model->selectas('status', '1', 'jenis_dokumen_kepemilikan', 'priority', 'ASC');
 		$data['jenis_dokumen_kepemilikan']=$sjenis_dokumen_kepemilikan;
 
 		$sjenis_hak_milik="select B.name as jenis_hak_milik, B.priority, B.id as kategori_kepemilikan, COUNT(A.id) as total_aset, SUM(A.luas) as total_luas_tanah
 							from jenis_hak_milik B 
-							left join assets A  on B.id = A.status_hak_milik
+							left join assets A  on B.id = A.status_hak_milik && A.approved=1
 							group by B.id
 							order by B.priority;";
 		$data['jenis_hak_milik']=$this->m_model->selectcustom($sjenis_hak_milik);
 
 		$data['kategori_kepemilikan']=array();
+		$data['data_kepemilikan']=array();
 		foreach ($q as $key => $value) {
 			// code...
 			if(!isset($data['total_aset'])){
@@ -100,6 +101,7 @@ class Home extends CI_Controller {
 
 
 		}
+
 		#echo "<pre>"; print_r($q); print_r($data); echo "</pre>" ; die();
 
 		$this->load->view('home/dashboard', $data);

@@ -75,7 +75,7 @@ $this->load->view('layout/header');
                   // code...
 
                 $percentage=0;
-                if(isset($ls_jenis_dokumen_kepemilikan[$value->id])){
+                if(isset($ls_jenis_dokumen_kepemilikan[$value->id]) && $total_aset>0){
                   $percentage=$ls_jenis_dokumen_kepemilikan[$value->id]/$total_aset*100;
                 }
                 else{
@@ -135,7 +135,9 @@ $this->load->view('layout/header');
               foreach ($jenis_hak_milik as $key => $value) {
                 // code...
                 $percentage=0;
-                $percentage=$value->total_aset/$total_aset*100;
+                if($total_aset>0){
+                  $percentage=$value->total_aset/$total_aset*100;
+                }
 
                 $bg_bar='bg-green';
                 if($percentage ==0){
