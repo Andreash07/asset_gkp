@@ -5,6 +5,7 @@ $this->load->view('layout/header');
   	<div class="row">
     	<div class="col-xs-12">
   			<div class="x_panel">
+      			<a href="<?=base_url();?>aset/" class="btn btn-warning pull-right" >Kembali</a>
         		<div class="x_title">
           			<h4 class="">Tambah - Aset GKP</h4>
         		</div>

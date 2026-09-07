@@ -32,17 +32,78 @@ class Aset extends CI_Controller {
 	public function index()
 	{
 		$data=array();
+		$where="";
+
+		$order_by='ASC';
+    	$field_order='order by A.id';
+  		$param_active='?';
+		$numLimit=30;
+        $numStart=0;
+
+        if(!$this->input->get('page')){
+            $page=1;
+            $numStart=($numLimit*$page)-$numLimit;
+            $data['numStart']=$numStart;
+        }
+        else{
+            $page=$this->input->get('page');
+            $numStart=($numLimit*$page)-$numLimit;
+            $data['numStart']=$numStart;
+        }
+
+        if(!$this->input->get('page')){
+            $page_active=1;
+        }else{
+            $page_active=$this->input->get('page');
+        }
+
+    	//$param_active.="page=".$page_active;
+        
+		if($this->input->get('keyword') !=''){
+			$where.=" && LOWER(A.peruntukan_tanah) like lower('%".$this->input->get('keyword')."%')";
+			$param_active.="keyword=".$this->input->get('keyword')."&";
+		}
+
+		if($this->input->get('pengelola') != ''){
+			$where.=" && LOWER(B.id) like lower('".$this->input->get('pengelola')."')";
+			$param_active.="pengelola=".$this->input->get('pengelola')."&";
+		}
+
+		if($this->input->get('jenis_dokumen') != ''){
+			$where.=" && LOWER(E.id) like lower('".$this->input->get('jenis_dokumen')."')";
+			$param_active.="jenis_dokumen=".$this->input->get('jenis_dokumen')."&";
+		}
 
 		#$s=$this->m_model->selectas('id >0', null, 'assets');
-		$s=$this->m_model->selectcustom("select A.*, B.CompName as jemaat , C.name as klasis, D.name as kategori_atas_nama, E.name as status_hak_milik, F.name as jenis_dokumen_kepemilikan
+		$query_data="select A.*, B.CompName as jemaat , C.name as klasis, D.name as kategori_atas_nama, E.name as status_hak_milik, F.name as jenis_dokumen_kepemilikan
 											from assets A 
 											left join jemaat B on B.id = A.jemaat_id
 											left join klasis C on C.id = B.klasis_id
 											left join kategori_kepemilikan D on D.id = A.kategori_atas_nama
 											left join jenis_hak_milik E on E.id = A.status_hak_milik
 											left join jenis_dokumen_kepemilikan F on F.id = A.jenis_dokumen_kepemilikan
-											where A.id >0");
+											where A.id >0 ";
+
+		$kategori_kepemilikan=$this->m_model->selectas('status','1', 'kategori_kepemilikan');
+		$data['kategori_kepemilikan']=$kategori_kepemilikan;
+
+		$pengelola_aset=$this->m_model->selectas('id >=0 ', null, 'jemaat');
+		$data['pengelola_aset']=$pengelola_aset;
+
+		$jenis_dokumen_kepemilikan=$this->m_model->selectas('id >=0 ', null, 'jenis_dokumen_kepemilikan');
+		$data['jenis_dokumen_kepemilikan']=$jenis_dokumen_kepemilikan;
+
+
+		$data['page']=$page;
+        $limit='LIMIT '.$numStart.', '.$numLimit;
+		$data['TotalOfProduct']=TotalOfProduct($query_data." ".$where." ".$field_order." ".$order_by);
+		$data['pagingnation']=pagingnation($data['TotalOfProduct'], $numLimit, $page_active, $param_active, $links=2);
+
+		$s=$this->m_model->selectcustom($query_data." ".$where." ".$field_order." ".$order_by." ".$limit);
 		$data['data']=$s;
+
+
+
 		$this->load->view('aset/index', $data);
 	}
 	public function edit($id=0){

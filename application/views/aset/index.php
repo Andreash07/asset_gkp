@@ -4,13 +4,24 @@ $this->load->view('layout/header');
 <div class="right_col" role="main">
 
   <div class="row">
-
     <div class="col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h4 class="pull-left">Aset GKP</h4>
-          <a class="btn btn-success" href="<?=base_url();?>aset/add">Tambah Data Aset</a>
+          <h4>Aset GKP</h4>
         </div>
+        <div class="x_content">
+<?php
+$this->load->view('aset/search_box');
+?>
+</div>
+</div>
+</div>
+</div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="x_panel">
+          <?=$pagingnation;?>
         <div class="x_content table-responsive">
           <table class="table table-striped" id="item_sj">
             <thead>
@@ -87,6 +98,7 @@ $this->load->view('layout/header');
             </tbody>
           </table>
         </div>
+        <?=$pagingnation;?>
       </div>
     </div>
   </div>
