@@ -1,5 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require FCPATH. '/vendor/autoload.php';
+
+use Spatie\Browsershot\Browsershot;
 
 class Home extends CI_Controller {
 
@@ -108,7 +111,11 @@ class Home extends CI_Controller {
 	}
 
 
-	public function dashboard_pdf()
+	public function dashboard_pdf(){
+		echo '<h1>TEST DASHBOARD PDF</h1>';
+    echo '<p>Chromium berhasil mengakses CI3.</p>';
+	}
+	public function dashboard_pdf_new()
 	{
 		$data=array();
 		$s="select B.name as nama_kategori_kepemilikan, B.initials as initials_kategori_kepemilikan, B.id as kategori_kepemilikan, COUNT(A.id) as total_aset, SUM(A.luas) as total_luas_tanah, A.jenis_dokumen_kepemilikan, C.name as nama_jenis_dokumen 
@@ -189,19 +196,14 @@ class Home extends CI_Controller {
 
 	public function export_dashboard_pdf()
 	{
-		
-		require __DIR__ . '/vendor/autoload.php';
-
-		use Spatie\Browsershot\Browsershot;
-	    //$url = base_url('aset/dashboard_pdf');
 	    $url = 'http://localhost:800/asset_gkp/home/dashboard_pdf';
 
-	    //$pdfPath = FCPATH . 'uploads/dashboard-test.pdf';
-	    $pdfPath = FCPATH . 'dashboard-test.pdf';
+	    $path = FCPATH . 'dashboard-test.png';
 
 	    Browsershot::url($url)
-	        ->save($pdfPath);
+	        ->setOption('args', ['--disable-web-security'])
+	        ->save($path);
 
-	    echo 'PDF berhasil dibuat: ' . $pdfPath;
+	    echo 'Screenshot berhasil dibuat: ' . $path;
 	}
 }
