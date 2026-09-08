@@ -40,3 +40,10 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/tests/
 /tests/results/
 /asset_gkp
+/node_modules
+test.pdf
+test2.pdf
+package.json
+package-lock.json
+composer.json
+composer.json
