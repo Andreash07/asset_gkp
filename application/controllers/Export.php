@@ -1,7 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require FCPATH. '/vendor/autoload.php';
 
-class Home extends CI_Controller {
+use Spatie\Browsershot\Browsershot;
+
+class Export extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -22,14 +25,19 @@ class Home extends CI_Controller {
     {
         parent::__construct();
 
-        if(!isset($this->session->userdata('user')->id) ){
-        	redirect(base_url().'login');
-        }
-
-
     }
 
 	public function index()
+	{
+		
+	}
+
+
+	public function dashboard_pdf_simple(){
+		echo '<h1>TEST DASHBOARD PDF5</h1>';
+    echo '<p>Chromium berhasil mengakses CI3.</p>';
+	}
+	public function dashboard_pdf()
 	{
 		$data=array();
 		$s="select B.name as nama_kategori_kepemilikan, B.initials as initials_kategori_kepemilikan, B.id as kategori_kepemilikan, COUNT(A.id) as total_aset, SUM(A.luas) as total_luas_tanah, A.jenis_dokumen_kepemilikan, C.name as nama_jenis_dokumen 
@@ -102,8 +110,123 @@ class Home extends CI_Controller {
 
 		}
 
-		#echo "<pre>"; print_r($q); print_r($data); echo "</pre>" ; die();
+		
+		$this->load->view('home/dashboard_pdf', $data);
 
-		$this->load->view('home/dashboard', $data);
+	}
+
+
+	public function dashboardtopdf()
+	{
+		//die('asdas');
+	    $url = 'http://localhost:800/asset_gkp/export/dashboard_pdf';
+
+	    $pdfPath = FCPATH . 'dashboard-test.pdf';
+
+		$footerHtml = '
+		<style>
+		    html {
+		        font-size: 8px;
+		    }
+
+		    body {
+		        margin: 0;
+		        padding: 0;
+		        font-family: Arial, Helvetica, sans-serif;
+		        color: #7a8794;
+		    }
+
+		    .footer {
+		        width: 100%;
+		        font-size: 8px;
+		        color: #7a8794;
+		        border-top: 1px solid #d9dee3;
+		        padding-top: 4px;
+		        box-sizing: border-box;
+		    }
+
+		    .left {
+		        float: left;
+		        width: 33%;
+		        text-align: left;
+		    }
+
+		    .center {
+		        float: left;
+		        width: 34%;
+		        text-align: center;
+		    }
+
+		    .right {
+		        float: right;
+		        width: 33%;
+		        text-align: right;
+		    }
+		</style>
+
+		<div class="footer">
+
+		    <div class="left">
+		        Gereja Kristen Pasundan
+		    </div>
+
+		    <div class="center">
+		        Laporan Data Aset GKP &bull; 2026
+		    </div>
+
+		    <div class="right">
+		        Halaman <span class="pageNumber"></span>
+		        dari <span class="totalPages"></span>
+		    </div>
+
+		</div>
+		';
+
+		Browsershot::url($url)
+		    ->windowSize(1920, 1080)
+		    ->waitForFunction('window.dashboardReady === true')
+			#->waitForFunction('document.readyState === "complete"')
+			->setOption('args', ['--disable-web-security'])
+		    ->format('A4')
+		    ->landscape()
+		    ->showBrowserHeaderAndFooter()
+		    ->hideHeader()
+		    ->footerHtml($footerHtml)
+		    ->save($pdfPath);
+
+
+
+	    if (file_exists($pdfPath)) {
+		    $filename = 'Laporan_Data_Aset_GKP_' . date('Y-m-d_H-i-s') . '.pdf';
+
+		    header('Content-Type: application/pdf');
+		    header('Content-Disposition: attachment; filename="' . $filename . '"');
+		    header('Content-Length: ' . filesize($pdfPath));
+		    header('Cache-Control: private, max-age=0, must-revalidate');
+		    header('Pragma: public');
+
+		    readfile($pdfPath);
+		    exit;
+
+		} else {
+		    show_error('File PDF gagal dibuat.');
+		}
+
+	}
+
+	public function export_dashboard_png()
+	{
+		//die('asdas');
+	    $url = 'http://localhost:800/asset_gkp/export/dashboard_pdf';
+
+		$path = FCPATH . 'dashboard-test.png';
+
+		Browsershot::url($url)
+		    ->windowSize(1920, 5000)
+		    ->delay(20000)
+		    ->setOption('args', ['--disable-web-security'])
+		    ->save($path);
+
+	    echo 'PDF berhasil dibuat di7 ' . $path;
 	}
 }

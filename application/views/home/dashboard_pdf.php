@@ -62,7 +62,7 @@
 
     <!-- Custom Theme Style -->
 
-    <link href="<?=base_url();?>/build/css/custom.min.css" rel="stylesheet">
+    <link href="<?=base_url();?>/build/css/custom.css" rel="stylesheet">
 
 
 
@@ -103,13 +103,190 @@
 
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
     <link rel="icon" type="image/png" href="<?=base_url();?>assets/images/logo-gkp_compressed.png" sizes="96x96" />
+    <style>
+      @media print {
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+        body {
+          /*background: #f7f7f7 !important;*/
+        }
+      }
 
+
+      /* =================================
+   HEADER / KOP LAPORAN
+   ================================= */
+
+.report-header {
+    width: 100%;
+    min-height: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    margin-bottom: 8pt;
+}
+
+.report-brand {
+    display: flex;
+    align-items: center;
+}
+
+.report-logo {
+    width: 65px;
+    height: 65px;
+    margin-right: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.report-logo img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+}
+
+.report-church {
+    line-height: 1.2;
+}
+
+.church-name {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 21px;
+    font-weight: bold;
+    color: #173f67;
+    letter-spacing: 0.3px;
+}
+
+.church-subtitle {
+    margin-top: 2px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #587089;
+    letter-spacing: 1.2px;
+}
+
+.church-motto {
+    margin-top: 5px;
+    font-size: 12px;
+    font-style: italic;
+    color: #718096;
+}
+
+.report-info {
+    text-align: right;
+    padding-right: 5px;
+}
+
+.report-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #173f67;
+    margin-bottom: 5px;
+}
+
+.report-period {
+    font-size: 12px;
+    color: #587089;
+    margin-bottom: 3px;
+}
+
+.report-date {
+    font-size: 12px;
+    color: #718096;
+}
+
+.report-header-line {
+    width: 100%;
+    border-bottom: 2px solid #173f67;
+    margin-bottom: 14pt;
+}
+
+@page {
+    size: A4 landscape;
+    margin: 10mm 10mm 14mm 10mm;
+}
+
+.page-break {
+    page-break-before: always;
+    break-before: page;
+}
+
+
+.green {
+    color: #1ABB9C !important;
+}
+
+.red {
+    color: #E74C3C !important;
+}
+
+.count.green {
+    color: #1ABB9C !important;
+}
+
+.count.red {
+    color: #E74C3C !important;
+}
+
+</style>
 
   </head>
  <body class="nav-md">
 
   <div class="container body">
 <div class="right_col" role="main" style="margin-left:0 !important;">
+  <!-- ==============================
+     HEADER / KOP LAPORAN
+     ============================== -->
+
+<div class="report-header">
+
+    <div class="report-brand">
+
+        <div class="report-logo">
+            <img src="<?= base_url('assets/images/logo-gkp.png'); ?>" alt="Logo GKP">
+        </div>
+
+        <div class="report-church">
+            <div class="church-name">
+                GEREJA KRISTEN PASUNDAN
+            </div>
+
+            <div class="church-subtitle">
+                BPP SINODE
+            </div>
+
+            <div class="church-motto">
+                Menjadi Gereja Bagi Sesama
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="report-info">
+
+        <div class="report-title">
+            LAPORAN DATA ASET (Property) GKP
+        </div>
+
+        <div class="report-period">
+            <strong>per-<?=date('F Y');?></strong>
+        </div>
+
+        <div class="report-date">
+            Tanggal Cetak : <?= date('d F Y | H:i:A'); ?>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="report-header-line"></div>
  	<!-- top tiles -->
   	<div class="row tile_count">
         <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
@@ -160,21 +337,6 @@
     		<div class="x_panel tile fixed_height_390">
             <div class="x_title">
 	          	<h2>Status Legalitas</h2>
-	          	<ul class="nav navbar-right panel_toolbox">
-	                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-	                </li>
-	                <li class="dropdown">
-	                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-	                  <ul class="dropdown-menu" role="menu">
-	                    <li><a href="#">Settings 1</a>
-	                    </li>
-	                    <li><a href="#">Settings 2</a>
-	                    </li>
-	                  </ul>
-	                </li>
-	                <li><a class="close-link"><i class="fa fa-close"></i></a>
-	                </li>
-	          	</ul>
 	          	<div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -221,21 +383,6 @@
     		<div class="x_panel tile fixed_height_390">
           <div class="x_title">
           	<h2>Jenis Hak Kepemilikan</h2>
-          	<ul class="nav navbar-right panel_toolbox">
-                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                </li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Settings 1</a>
-                    </li>
-                    <li><a href="#">Settings 2</a>
-                    </li>
-                  </ul>
-                </li>
-                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                </li>
-          	</ul>
           	<div class="clearfix"></div>
           </div>
           <div class="x_content">
@@ -278,21 +425,6 @@
     		<div class="x_panel tile fixed_height_390">
           <div class="x_title">
           	<h2>Kepemilikan Atas Nama</h2>
-          	<ul class="nav navbar-right panel_toolbox">
-                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                </li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Settings 1</a>
-                    </li>
-                    <li><a href="#">Settings 2</a>
-                    </li>
-                  </ul>
-                </li>
-                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                </li>
-          	</ul>
           	<div class="clearfix"></div>
           </div>
           <div class="x_content">
@@ -337,71 +469,26 @@
     		<div class="x_panel tile fixed_height_390">
             <div class="x_title">
 	          	<h2>Aset Berdasarkan Klasis</h2>
-	          	<ul class="nav navbar-right panel_toolbox">
-	                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-	                </li>
-	                <li class="dropdown">
-	                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-	                  <ul class="dropdown-menu" role="menu">
-	                    <li><a href="#">Settings 1</a>
-	                    </li>
-	                    <li><a href="#">Settings 2</a>
-	                    </li>
-	                  </ul>
-	                </li>
-	                <li><a class="close-link"><i class="fa fa-close"></i></a>
-	                </li>
-	          	</ul>
 	          	<div class="clearfix"></div>
             </div>
             <div class="x_content" id="x_content_aset_klasis">
             </div>
       	</div>
       </div>
-      <div class="col-md-4 col-sm-4 col-xs-12">
-    		<div class="x_panel tile fixed_height_390">
+      <div class="col-md-4 col-sm-4 col-xs-12" style="display:none;">
+    		<div class="x_panel tile">
             <div class="x_title">
 	          	<h2>Jemaat - Aset Terbanyak</h2>
-	          	<ul class="nav navbar-right panel_toolbox">
-	                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-	                </li>
-	                <li class="dropdown">
-	                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-	                  <ul class="dropdown-menu" role="menu">
-	                    <li><a href="#">Settings 1</a>
-	                    </li>
-	                    <li><a href="#">Settings 2</a>
-	                    </li>
-	                  </ul>
-	                </li>
-	                <li><a class="close-link"><i class="fa fa-close"></i></a>
-	                </li>
-	          	</ul>
 	          	<div class="clearfix"></div>
             </div>
             <div class="x_content" id="x_content_aset_klasis">
             </div>
       	</div>
       </div>
-      <div class="col-md-4 col-sm-4 col-xs-12">
-    		<div class="x_panel tile fixed_height_390">
+      <div class="col-md-4 col-sm-4 col-xs-12"  style="display:none;">
+    		<div class="x_panel tile">
             <div class="x_title">
 	          	<h2>Jemaat - Aset Terbanyak</h2>
-	          	<ul class="nav navbar-right panel_toolbox">
-	                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-	                </li>
-	                <li class="dropdown">
-	                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-	                  <ul class="dropdown-menu" role="menu">
-	                    <li><a href="#">Settings 1</a>
-	                    </li>
-	                    <li><a href="#">Settings 2</a>
-	                    </li>
-	                  </ul>
-	                </li>
-	                <li><a class="close-link"><i class="fa fa-close"></i></a>
-	                </li>
-	          	</ul>
 	          	<div class="clearfix"></div>
             </div>
             <div class="x_content" id="x_content_aset_klasis">
@@ -421,10 +508,21 @@
       </div>-->
     </div>
 
+  <div class="page-break"></div>
   <div class="row" id="row_aset_jemaatperklasis">
+    <div class="report-brand">
+      <div class="report-church">
+        <div class="report-title">
+          Data Ringkasan Aset per-Klasis/Jemaat
+        </div>
+      </div>
+    </div>
+    <div class="report-header-line"></div>
   </div>
+
 </div>
 </div>
+</body>
 
 
 <?php
@@ -437,596 +535,30 @@ $this->load->view('layout/footer');
 <script src="<?=base_url();?>vendors/echarts/map/js/world.js"></script>
 
 <script>
-		var theme = {
-
-		  	color: [
-
-				  '#26B99A', '#34495E', '#BDC3C7', '#3498DB',
-
-				  '#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'
-
-		  	],
-
-
-
-		  	title: {
-
-				  itemGap: 8,
-
-				  textStyle: {
-
-					  fontWeight: 'normal',
-
-					  color: '#408829'
-
-				  }
-
-		  	},
-
-
-
-			  dataRange: {
-
-				  color: ['#1f610a', '#97b58d']
-
-			  },
-
-
-
-			  toolbox: {
-
-				  color: ['#408829', '#408829', '#408829', '#408829']
-
-			  },
-
-
-
-			  tooltip: {
-
-				  backgroundColor: 'rgba(0,0,0,0.5)',
-
-				  axisPointer: {
-
-					  type: 'line',
-
-					  lineStyle: {
-
-						  color: '#408829',
-
-						  type: 'dashed'
-
-					  },
-
-					  crossStyle: {
-
-						  color: '#408829'
-
-					  },
-
-					  shadowStyle: {
-
-						  color: 'rgba(200,200,200,0.3)'
-
-					  }
-
-				  }
-
-			  },
-
-
-
-			  dataZoom: {
-
-				  dataBackgroundColor: '#eee',
-
-				  fillerColor: 'rgba(64,136,41,0.2)',
-
-				  handleColor: '#408829'
-
-			  },
-
-			  grid: {
-
-				  borderWidth: 0,
-          left: 60,
-    right: 20,
-    top: 30,
-    height: 200,
-    //containLabel: true
-
-			  },
-
-
-
-			  categoryAxis: {
-
-				  axisLine: {
-
-					  lineStyle: {
-
-						  color: '#408829'
-
-					  }
-
-				  },
-
-				  splitLine: {
-
-					  lineStyle: {
-
-						  color: ['#eee']
-
-					  }
-
-				  }
-
-			  },
-
-
-
-			  valueAxis: {
-
-				  axisLine: {
-
-					  lineStyle: {
-
-						  color: '#408829'
-
-					  }
-
-				  },
-
-				  splitArea: {
-
-					  show: true,
-
-					  areaStyle: {
-
-						  color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
-
-					  }
-
-				  },
-
-				  splitLine: {
-
-					  lineStyle: {
-
-						  color: ['#eee']
-
-					  }
-
-				  }
-
-			  },
-
-			  timeline: {
-
-				  lineStyle: {
-
-					  color: '#408829'
-
-				  },
-
-				  controlStyle: {
-
-					  normal: {color: '#408829'},
-
-					  emphasis: {color: '#408829'}
-
-				  }
-
-			  },
-
-
-
-			  k: {
-
-				  itemStyle: {
-
-					  normal: {
-
-						  color: '#68a54a',
-
-						  color0: '#a9cba2',
-
-						  lineStyle: {
-
-							  width: 1,
-
-							  color: '#408829',
-
-							  color0: '#86b379'
-
-						  }
-
-					  }
-
-				  }
-
-			  },
-
-			  map: {
-
-				  itemStyle: {
-
-					  normal: {
-
-						  areaStyle: {
-
-							  color: '#ddd'
-
-						  },
-
-						  label: {
-
-							  textStyle: {
-
-								  color: '#c12e34'
-
-							  }
-
-						  }
-
-					  },
-
-					  emphasis: {
-
-						  areaStyle: {
-
-							  color: '#99d2dd'
-
-						  },
-
-						  label: {
-
-							  textStyle: {
-
-								  color: '#c12e34'
-
-							  }
-
-						  }
-
-					  }
-
-				  }
-
-			  },
-
-			  force: {
-
-				  itemStyle: {
-
-					  normal: {
-
-						  linkStyle: {
-
-							  strokeColor: '#408829'
-
-						  }
-
-					  }
-
-				  }
-
-			  },
-
-			  chord: {
-
-				  padding: 4,
-
-				  itemStyle: {
-
-					  normal: {
-
-						  lineStyle: {
-
-							  width: 1,
-
-							  color: 'rgba(128, 128, 128, 0.5)'
-
-						  },
-
-						  chordStyle: {
-
-							  lineStyle: {
-
-								  width: 1,
-
-								  color: 'rgba(128, 128, 128, 0.5)'
-
-							  }
-
-						  }
-
-					  },
-
-					  emphasis: {
-
-						  lineStyle: {
-
-							  width: 1,
-
-							  color: 'rgba(128, 128, 128, 0.5)'
-
-						  },
-
-						  chordStyle: {
-
-							  lineStyle: {
-
-								  width: 1,
-
-								  color: 'rgba(128, 128, 128, 0.5)'
-
-							  }
-
-						  }
-
-					  }
-
-				  }
-
-			  },
-
-			  gauge: {
-
-				  startAngle: 225,
-
-				  endAngle: -45,
-
-				  axisLine: {
-
-					  show: true,
-
-					  lineStyle: {
-
-						  color: [[0.2, '#86b379'], [0.8, '#68a54a'], [1, '#408829']],
-
-						  width: 8
-
-					  }
-
-				  },
-
-				  axisTick: {
-
-					  splitNumber: 10,
-
-					  length: 12,
-
-					  lineStyle: {
-
-						  color: 'auto'
-
-					  }
-
-				  },
-
-				  axisLabel: {
-
-					  textStyle: {
-
-						  color: 'auto'
-
-					  }
-
-				  },
-
-				  splitLine: {
-
-					  length: 18,
-
-					  lineStyle: {
-
-						  color: 'auto'
-
-					  }
-
-				  },
-
-				  pointer: {
-
-					  length: '90%',
-
-					  color: 'auto'
-
-				  },
-
-				  title: {
-
-					  textStyle: {
-
-						  color: '#333'
-
-					  }
-
-				  },
-
-				  detail: {
-
-					  textStyle: {
-
-						  color: 'auto'
-
-					  }
-
-				  }
-
-			  },
-
-			  textStyle: {
-
-				  fontFamily: 'Arial, Verdana, sans-serif'
-
-			  }
-
-		  }
-
-	//echart1()
-	function echart1(jemaat, aset_jemaat, num_aset_jemaat, luas_aset_jemaat ){
-
-			if ($('#mainb').length ){
-
-			  	var echartBar = echarts.init(document.getElementById('mainb'), theme);
-
-			  	//console.log(jemaat)
-          //console.log(aset_jemaat)
-          //console.log(num_aset_jemaat)
-          //console.log(luas_aset_jemaat)
-
-			  	echartBar.setOption({
-
-					title: {
-
-					 // text: 'Graph title',
-
-					  //subtext: 'Graph Sub-text'
-
-					},
-
-					tooltip: {
-
-					  trigger: 'axis'
-
-					},
-
-					legend: {
-
-					  //data: ['Total Aset', 'Total Luas']
-            data: ['Total Aset']
-
-					},
-
-					toolbox: {
-
-					  show: false
-
-					},
-
-					calculable: false,
-
-					xAxis: [{
-
-					  type: 'category',
-
-					  data: jemaat,
-            axisLabel: {
-              interval: 0,
-              rotate: 60,
-              textStyle: {
-                fontSize: 8,
-                color: '#666',
-                fontFamily: 'Arial',
-                fontWeight: 'normal' 
-              }
-            }
-					}],
-
-					yAxis: [{
-
-					  type: 'value'
-
-					}],
-
-					series: [{
-
-					  name: 'Total Aset',
-
-					  type: 'bar',
-
-					  data: num_aset_jemaat,
-
-					  markPoint: {
-
-						data: [{
-
-						  type: 'max',
-
-						  name: 'Terbanyak'
-
-						},
-
-						{
-
-						  type: 'min',
-
-						  name: 'Terendah'
-
-						}]
-
-					  },
-
-					}, /*{
-
-					  name: 'Total Luas',
-
-					  type: 'bar',
-
-					  data: luas_aset_jemaat,
-
-					  markPoint: {
-
-						data: [{
-
-						  type: 'max',
-
-						  name: 'Terbanyak'
-
-						},
-
-						{
-
-						  type: 'min',
-
-						  name: 'Terendah'
-
-						}]
-
-					  },
-
-					}*/]
-
-			  	});
-
-			}
-			$('#mainb').append('<div class="col-xs-12 text-center"><i class="text-sm text-danger">&nbsp;</div>')
-
-		}
-
+  window.dashboardReady = false;
     get_data()
 
 		function get_data(){
 			dataMap={}
 			$.get('<?=base_url();?>api/dashboard', dataMap, function(data){
         json=$.parseJSON(data)
-        echart1(json.jemaat, json.aset_jemaat, json.num_aset_jemaat, json.luas_aset_jemaat)
         aset_klasis(json.klasis, json.total_aset)
+
+        //let totalKlasis = json.ls_klasis.length;
+
+        let totalKlasis = 0;
+        let selesaiKlasis = 0;
+
         $.each(json.ls_klasis, function(i, item){
+          totalKlasis++;
           console.log('klasis muter');
           html='<div class="col-md-4 col-sm-4 col-xs-12" >'+
-                '<div class="x_panel tile fixed_height_390" >'+
+                '<div class="x_panel tile" >'+
                   '<div class="x_title">'+
                     '<h2>Aset di <b>'+item.name+'</b></h2>'+
-                    '<ul class="nav navbar-right panel_toolbox">'+
-                      '<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>'+
-                      '</li>'+
-                      '<li class="dropdown">'+
-                        '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>'+
-                        '<ul class="dropdown-menu" role="menu">'+
-                          '<li><a href="#">Settings 1</a>'+
-                          '</li>'+
-                          '<li><a href="#">Settings 2</a>'+
-                          '</li>'+
-                        '</ul>'+
-                      '</li>'+
-                      '<li><a class="close-link"><i class="fa fa-close"></i></a>'+
-                      '</li>'+
-                    '</ul>'+
                     '<div class="clearfix"></div>'+
                   '</div>'+
-                  '<div class="x_content" id="x_content_aset_jemaatperklasis'+item.id+'" style="max-height:330px; overflow-y:auto;" >'+
+                  '<div class="x_content" id="x_content_aset_jemaatperklasis'+item.id+'" style="height: 600px;">'+
                   '</div>'+
                 '</div>'+
               '</div>';
@@ -1034,7 +566,23 @@ $this->load->view('layout/footer');
             $('#row_aset_jemaatperklasis').append(html)
           }
         setTimeout(function(){
-          aset_jemaatperklasis(json.ls_jemaat[item.id], item.id)
+          console.log('PROSES:', item.name);
+          aset_jemaatperklasis(
+              json.ls_jemaat[item.id],
+              item.id
+          );
+
+          selesaiKlasis++;
+
+          console.log('Selesai:', selesaiKlasis, '/', totalKlasis);
+
+          if (selesaiKlasis === totalKlasis) {
+              console.log('=== DASHBOARD READY ===');
+              window.dashboardReady = true;
+              console.log('FLAG SET:', window.dashboardReady);
+          }
+
+
         }, 500)
            
         })
