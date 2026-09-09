@@ -2,6 +2,7 @@
 
 application/cache/*
 application/config/*
+!application/config/routes.php
 application/core/*
 application/logs/*
 !application/cache/index.html
