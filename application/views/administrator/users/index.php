@@ -9,7 +9,7 @@ $this->load->view('layout/header');
       <div class="x_panel">
         <div class="x_title">
           <h4 class="pull-left">Data Users</h4>
-          <a class="btn btn-success" href="<?=base_url();?>administrator/users_add">Tambah Data User</a>
+          <a class="btn btn-success" href="<?=base_url();?>administrator/users/add">Tambah Data User</a>
         </div>
         <div class="x_content table-responsive">
           <table class="table table-striped" id="item_sj">
