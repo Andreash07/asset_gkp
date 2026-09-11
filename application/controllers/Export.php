@@ -119,8 +119,7 @@ class Export extends CI_Controller {
 	public function dashboardtopdf_windows()
 	{
 		//die('asdas');
-	    //$url = 'http://localhost:800/asset_gkp/export/dashboard_pdf';
-	    $url = 'https://hakmilik.gkp.or.id/asset_gkp/export/dashboard_pdf';
+	    $url = 'http://localhost:800/asset_gkp/export/dashboard_pdf';
 
 	    $pdfPath = FCPATH . 'dashboard-test.pdf';
 
@@ -216,7 +215,7 @@ class Export extends CI_Controller {
 	}
 
 	public function dashboardtopdf(){
-	    $command = 'HOME=/tmp/chrome-home /usr/bin/php8.2 /apps/asset_gkp/test-pdf.php 2>&1';
+	    $command = 'HOME=/tmp/chrome-home /usr/bin/php8.2 /apps/asset_gkp/test-pdf.php';
 
 	    exec($command, $output, $exitCode);
 

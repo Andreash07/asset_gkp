@@ -4,7 +4,7 @@ $this->load->view('layout/header');
 <div class="right_col" role="main">
   	<div class="row">
   		<div class="col-xs-12">
-				<a href="<?=base_url();?>export/dashboardtopdf" class="btn btn-danger pull-right" target="_BLANK"><i class="fa fa-file-pdf-o"></i> PDF</a>
+				<a href="<?=base_url();?>export-pdf.php" class="btn btn-danger pull-right" target="_BLANK"><i class="fa fa-file-pdf-o"></i> PDF</a>
 			</div>
 		</div>
  	<!-- top tiles -->
