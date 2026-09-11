@@ -70,9 +70,9 @@ $this->load->view('aset/search_box');
                         }
                     ?>
                       <select name="approve_asset<?=$value->id;?>" id="approve_asset<?=$value->id;?>" class="form-control" token="<?=md5('asek21gjhd!^d'.$value->id);?>">
-                        <option value="0" style="color: gray;" <?=$checked;?>>Belum Disetujui</option>
-                        <option value="1" style="color: green;" <?=$checked;?>>Disetujui</option>
-                        <option value="2" style="color: red;" <?=$checked;?>>Tidak Disetujui</option>
+                        <option value="0" style="color: gray;" <?php if($value->approved=='0'){ echo "selected" ;}?>>Belum Disetujui</option>
+                        <option value="1" style="color: green;" <?php if($value->approved=='1'){ echo "selected" ;}?>>Disetujui</option>
+                        <option value="2" style="color: red;" <?php if($value->approved=='2'){ echo "selected" ;}?>>Tidak Disetujui</option>
                       </select>
                     <?php 
                       }else{
