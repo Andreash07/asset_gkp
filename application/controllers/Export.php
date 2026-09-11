@@ -118,6 +118,7 @@ class Export extends CI_Controller {
 
 	public function dashboardtopdf()
 	{
+		putenv('HOME=/tmp/chrome-home');
 		#die(FCPATH. '/vendor/autoload.php');
 		//die('asdas');
 	    #$url = 'http://localhost:800/asset_gkp/export/dashboard_pdf';
