@@ -186,8 +186,9 @@ class Export extends CI_Controller {
 		';
 
 		Browsershot::url($url)
-			->setChromePath('/opt/puppeteer/chrome-linux64/chrome')
-		    ->windowSize(1920, 1080)
+    		->setChromePath('/opt/puppeteer/chrome-linux64/chrome')
+    		->noSandbox()
+    		->windowSize(1920, 1080)
 		    ->waitForFunction('window.dashboardReady === true')
 			#->waitForFunction('document.readyState === "complete"')
 			->setOption('args', ['--disable-web-security'])
