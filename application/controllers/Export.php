@@ -216,42 +216,31 @@ class Export extends CI_Controller {
 	}
 
 	public function dashboardtopdf(){
-		ini_set('pcre.jit', '0');
-		#die('pcre.jit = ' . ini_get('pcre.jit'));
+	    $command = 'HOME=/tmp/chrome-home /usr/bin/php8.2 /apps/asset_gkp/test-pdf.php 2>&1';
 
-		$process = new Process(
-		    [
-		        '/usr/bin/php8.2',
-		        '/apps/asset_gkp/test-pdf.php',
-		    ],
-		    null,
-		    [
-		        'HOME' => '/tmp/chrome-home',
-		    ]
-		);
+	    exec($command, $output, $exitCode);
 
-		$process->run();
-
+	    echo '<pre>';
+	    echo "Exit Code: " . $exitCode . "\n\n";
+	    echo implode("\n", $output);
+	    echo '</pre>';
+		
 		$pdfPath = FCPATH . 'dashboard-test.pdf';
+		
+		if (file_exists($pdfPath)) {
+		    $filename = 'Laporan_Data_Aset_GKP_' . date('Y-m-d_H-i-s') . '.pdf';
 
-		if (!$process->isSuccessful()) {
-		    show_error($process->getErrorOutput());
-		}else{
-			if (file_exists($pdfPath)) {
-			    $filename = 'Laporan_Data_Aset_GKP_' . date('Y-m-d_H-i-s') . '.pdf';
+		    header('Content-Type: application/pdf');
+		    header('Content-Disposition: attachment; filename="' . $filename . '"');
+		    header('Content-Length: ' . filesize($pdfPath));
+		    header('Cache-Control: private, max-age=0, must-revalidate');
+		    header('Pragma: public');
 
-			    header('Content-Type: application/pdf');
-			    header('Content-Disposition: attachment; filename="' . $filename . '"');
-			    header('Content-Length: ' . filesize($pdfPath));
-			    header('Cache-Control: private, max-age=0, must-revalidate');
-			    header('Pragma: public');
+		    readfile($pdfPath);
+		    exit;
 
-			    readfile($pdfPath);
-			    exit;
-
-			} else {
-			    show_error('File PDF gagal dibuat.');
-			}
+		} else {
+		    show_error('File PDF gagal dibuat.');
 		}
 
 	}
