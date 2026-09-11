@@ -216,6 +216,7 @@ class Export extends CI_Controller {
 	}
 
 	public function dashboardtopdf(){
+		ini_set('pcre.jit', '0');
 		$env = $_SERVER;
 		$env['HOME'] = '/tmp/chrome-home';
 
