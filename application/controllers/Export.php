@@ -1,8 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-require FCPATH. 'vendor/autoload.php';
+require FCPATH. '/vendor/autoload.php';
 
-use Spatie\Browsershot\Browsershot;
+use Spatie\Browsershot\Browsershot; //dimatiin dulu unutk di linux
+use Symfony\Component\Process\Process;
 
 class Export extends CI_Controller {
 
@@ -116,18 +117,10 @@ class Export extends CI_Controller {
 	}
 
 
-	public function dashboardtopdf()
+	public function dashboardtopdf_windows()
 	{
-		putenv('HOME=/tmp/chrome-home');
-		#die(FCPATH. '/vendor/autoload.php');
 		//die('asdas');
-	    #$url = 'http://localhost:800/asset_gkp/export/dashboard_pdf';
-	    if(strpos(base_url(), 'hakmilik.gkp.or.id') !== FALSE){
-	    	$url = 'https://hakmilik.gkp.or.id/export/dashboard_pdf';
-	    }else{
-	    	$url = base_url().'export/dashboard_pdf';
-	    }
-	    #die($url);
+	    $url = 'http://localhost:800/asset_gkp/export/dashboard_pdf';
 
 	    $pdfPath = FCPATH . 'dashboard-test.pdf';
 
@@ -191,10 +184,7 @@ class Export extends CI_Controller {
 		';
 
 		Browsershot::url($url)
-    		->setChromePath('/opt/puppeteer/chrome-linux64/chrome')
-    		->setNodeBinary('/usr/bin/node')
-			->noSandbox()
-    		->windowSize(1920, 1080)
+		    ->windowSize(1920, 1080)
 		    ->waitForFunction('window.dashboardReady === true')
 			#->waitForFunction('document.readyState === "complete"')
 			->setOption('args', ['--disable-web-security'])
@@ -224,6 +214,46 @@ class Export extends CI_Controller {
 		}
 
 	}
+
+	public function dashboardtopdf(){
+		$env = $_SERVER;
+		$env['HOME'] = '/tmp/chrome-home';
+
+		$process = new Process(
+		    [
+		        '/usr/bin/php8.2',
+		        '/apps/asset_gkp/test-pdf.php',
+		    ],
+		    null,
+		    $env
+		);
+
+		$process->run();
+
+		$pdfPath = FCPATH . 'dashboard-test.pdf';
+
+		if (!$process->isSuccessful()) {
+		    show_error($process->getErrorOutput());
+		}else{
+			if (file_exists($pdfPath)) {
+			    $filename = 'Laporan_Data_Aset_GKP_' . date('Y-m-d_H-i-s') . '.pdf';
+
+			    header('Content-Type: application/pdf');
+			    header('Content-Disposition: attachment; filename="' . $filename . '"');
+			    header('Content-Length: ' . filesize($pdfPath));
+			    header('Cache-Control: private, max-age=0, must-revalidate');
+			    header('Pragma: public');
+
+			    readfile($pdfPath);
+			    exit;
+
+			} else {
+			    show_error('File PDF gagal dibuat.');
+			}
+		}
+
+	}
+
 
 	public function export_dashboard_png()
 	{
