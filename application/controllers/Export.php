@@ -119,7 +119,8 @@ class Export extends CI_Controller {
 	public function dashboardtopdf()
 	{
 		//die('asdas');
-	    $url = 'http://localhost:800/asset_gkp/export/dashboard_pdf';
+	    #$url = 'http://localhost:800/asset_gkp/export/dashboard_pdf';
+	    $url = base_url().'export/dashboard_pdf';
 
 	    $pdfPath = FCPATH . 'dashboard-test.pdf';
 
