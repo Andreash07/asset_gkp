@@ -126,7 +126,7 @@ class Export extends CI_Controller {
 	    }else{
 	    	$url = base_url().'export/dashboard_pdf';
 	    }
-	    die($url);
+	    #die($url);
 
 	    $pdfPath = FCPATH . 'dashboard-test.pdf';
 
