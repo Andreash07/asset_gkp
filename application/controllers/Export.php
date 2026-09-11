@@ -122,7 +122,7 @@ class Export extends CI_Controller {
 		//die('asdas');
 	    #$url = 'http://localhost:800/asset_gkp/export/dashboard_pdf';
 	    if(strpos(base_url(), ':') !== FALSE){
-	    	$url = explode(':', base_url())[0]'/export/dashboard_pdf';
+	    	$url = explode(':', base_url())[0].'/export/dashboard_pdf';
 	    }else{
 	    	$url = base_url().'export/dashboard_pdf';
 	    }
