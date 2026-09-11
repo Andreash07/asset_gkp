@@ -3,7 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require FCPATH. '/vendor/autoload.php';
 
 use Spatie\Browsershot\Browsershot; //dimatiin dulu unutk di linux
-use Symfony\Component\Process\Process;
 
 class Export extends CI_Controller {
 
@@ -226,7 +225,7 @@ class Export extends CI_Controller {
 	    echo '</pre>';
 		
 		$pdfPath = FCPATH . 'dashboard-test.pdf';
-		
+
 		if (file_exists($pdfPath)) {
 		    $filename = 'Laporan_Data_Aset_GKP_' . date('Y-m-d_H-i-s') . '.pdf';
 
