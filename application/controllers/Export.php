@@ -187,7 +187,8 @@ class Export extends CI_Controller {
 
 		Browsershot::url($url)
     		->setChromePath('/opt/puppeteer/chrome-linux64/chrome')
-    		->noSandbox()
+    		->setNodeBinary('/usr/bin/node')
+			->noSandbox()
     		->windowSize(1920, 1080)
 		    ->waitForFunction('window.dashboardReady === true')
 			#->waitForFunction('document.readyState === "complete"')
