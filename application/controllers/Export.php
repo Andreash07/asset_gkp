@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-require FCPATH. '/vendor/autoload.php';
+require FCPATH. 'vendor/autoload.php';
 
 use Spatie\Browsershot\Browsershot;
 
@@ -118,7 +118,7 @@ class Export extends CI_Controller {
 
 	public function dashboardtopdf()
 	{
-		die(FCPATH. '/vendor/autoload.php');
+		#die(FCPATH. '/vendor/autoload.php');
 		//die('asdas');
 	    #$url = 'http://localhost:800/asset_gkp/export/dashboard_pdf';
 	    $url = base_url().'export/dashboard_pdf';
