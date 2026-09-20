@@ -146,18 +146,23 @@ $this->load->view('layout/header');
 				        </div>
 				        <div class="form-group">
 				        	<label class="control-label col-md-3 col-sm-3 col-xs-12" title="Lokasi Penempatan Sertifikat">
-				          		Lokasi Berkas di Sinode?
+				          		<!--Lokasi Berkas di Sinode?-->
+				          		Lokasi Berkas
 				          		<span class="required">*</span>
 				          	</label>
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
 			          			<select name="sts_sertifikat_disinode" class="form-control">
-			          				<option value="1">Ya</option>
+			          				<!--<option value="1">Ya</option>
 			          				<option value="2">Tidak</option>
-			          				<option value="0">Belum Diketahui</option>
+			          				<option value="0">Belum Diketahui</option>-->
+			          				<option value="1">Sinode</option>
+			          				<option value="2">Badan Pelayanan GKP</option>
+			          				<option value="3">Jemaat</option>
+			          				<option value="4">Tidak diketahui</option>
 			          			</select>
 			          		</div>
 				        </div>
-				        <div class="form-group">
+				        <!--<div class="form-group">
 				          	<label class="control-label col-md-3 col-sm-3 col-xs-12" title="Lokasi Penempatan Sertifikat">
 				          		Keterangan
 				          		<span class="required">*</span>
@@ -165,7 +170,7 @@ $this->load->view('layout/header');
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
 				            	<textarea class="form-control" placeholder="Lokasi Penempatan Sertifikat" title="Lokasi Penempatan Sertifikat" name="keterangan" rows="5"></textarea>
 				          	</div>
-				        </div>
+				        </div>-->
 				        <div class="form-group">
 				          	<label class="control-label col-md-3 col-sm-3 col-xs-12">
 				          		Catatan
