@@ -158,14 +158,19 @@ $this->load->view('layout/header');
 				        </div>
 				        <div class="form-group">
 				        	<label class="control-label col-md-3 col-sm-3 col-xs-12" title="Lokasi Penempatan Sertifikat">
-				          		Lokasi Berkas di Sinode?
+				          		Lokasi Berkas?
 				          		<span class="required">*</span>
 				          	</label>
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
 			          			<select name="sts_sertifikat_disinode" class="form-control">
-			          				<option value="1" <?php if($value->sts_sertifikat_disinode=='1'){ echo "selected"; } ?> >Ya</option>
+			          				<!--<option value="1" <?php if($value->sts_sertifikat_disinode=='1'){ echo "selected"; } ?> >Ya</option>
 			          				<option value="2" <?php if($value->sts_sertifikat_disinode=='2'){ echo "selected"; } ?> >Tidak</option>
-			          				<option value="0" <?php if($value->sts_sertifikat_disinode=='0'){ echo "selected"; } ?> >Belum Diketahui</option>
+			          				<option value="0" <?php if($value->sts_sertifikat_disinode=='0'){ echo "selected"; } ?> >Belum Diketahui</option>-->
+
+			          				<option value="1" <?php if($value->sts_sertifikat_disinode=='1'){ echo "selected"; } ?>>Sinode</option>
+			          				<option value="2" <?php if($value->sts_sertifikat_disinode=='2'){ echo "selected"; } ?>>Badan Pelayanan GKP</option>
+			          				<option value="3" <?php if($value->sts_sertifikat_disinode=='3'){ echo "selected"; } ?>>Jemaat</option>
+			          				<option value="0" <?php if($value->sts_sertifikat_disinode=='0'){ echo "selected"; } ?>>Tidak diketahui</option>
 			          			</select>
 			          		</div>
 				        </div>

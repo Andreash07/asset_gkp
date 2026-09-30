@@ -76,7 +76,6 @@ $this->load->view('layout/header');
 				        <div class="form-group">
 				          	<label class="control-label col-md-3 col-sm-3 col-xs-12">
 				          		Atas Nama
-				          		<span class="required">*</span>
 				          	</label>
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
 				            	<input type="text" class="form-control" placeholder="Atas Nama Aset secara Administrasi" name="atas_nama" value="" id="autocomplete-custom-append">
@@ -158,7 +157,7 @@ $this->load->view('layout/header');
 			          				<option value="1">Sinode</option>
 			          				<option value="2">Badan Pelayanan GKP</option>
 			          				<option value="3">Jemaat</option>
-			          				<option value="4">Tidak diketahui</option>
+			          				<option value="0">Tidak diketahui</option>
 			          			</select>
 			          		</div>
 				        </div>
@@ -348,10 +347,11 @@ $(document).on('change blur','[name=kategori_atas_nama]', function(){
 		const text_show = ["3", "4", "5", "7"];
 		if(text_show.includes(val) == true){
 			//$('#autocomplete-custom-append').show()
+			$('#autocomplete-custom-append').removeAttr('disabled')
 		}
 		else{
-			//$('#autocomplete-custom-append').val('')			
-			//$('#autocomplete-custom-append').hide()			
+			$('#autocomplete-custom-append').val('')			
+			$('#autocomplete-custom-append').attr('disabled', 'disabled')
 		}
 	})
 	kategori_atas_nama_text=$.parseJSON('<?= json_encode($kategori_atas_nama_text, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);?>')

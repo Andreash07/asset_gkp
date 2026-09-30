@@ -38,6 +38,21 @@ $this->load->view('aset/search_box');
               $i=1;
               foreach ($data as $key => $value) {
                 # code...
+                $lokasi_dokumen='<b class="text-danger">Belum diketahui</b>';
+                switch ($value->sts_sertifikat_disinode) {
+                  case '1':
+                    // code...
+                    $lokasi_dokumen='<b>di Sinode</b>';
+                    break;
+                  case '2':
+                    // code...
+                    $lokasi_dokumen='<b>di BP GKP</b>';
+                    break;
+                  case '4':
+                    // code...
+                    $lokasi_dokumen='<b>di Jemaat</b>';
+                    break;
+                }
               ?>
                 <tr>
                   <td class="text-center" style="width: 30px;"><?=$i++;?></td>
@@ -47,13 +62,13 @@ $this->load->view('aset/search_box');
                     <span style="font-size: 12px;  line-height: 0.7;">Jenis Dokumen : <b><?=$value->jenis_dokumen_kepemilikan;?></b></span><br>
                     <span style="font-size: 12px;  line-height: 0.7;">No Dokumen : <b><?=$value->no_dokumen;?></b></span><br>
                     <span style="font-size: 12px;  line-height: 0.7;">Status Kepelimikan : <b><?=$value->status_hak_milik;?></b></span><br>
-                    <span style="font-size: 12px;  line-height: 0.7;">Keterangan: <b><?= nl2br($value->keterangan);?></b></span><br>
+                    <span style="font-size: 12px;  line-height: 0.7;">Lokasi Berkas: <b><?= $lokasi_dokumen;?></b></span><br>
+                    <span style="font-size: 12px;  line-height: 0.7;">Catatan: <b><?= nl2br($value->catatan);?></b></span><br>
                   </td>
                   <td class="text-center"><b><?=$value->jemaat;?></b><br><?=$value->klasis;?></td>
                   <td>
                     <span style="font-size: 12px;  line-height: 0.7;">Luas: <b><?=$value->luas;?> M²</b></span><br>
-                    <span style="font-size: 12px;  line-height: 0.7;">Lokasi: <b><?= nl2br($value->alamat_lokasi);?></b></span>
-                    <span style="font-size: 12px;  line-height: 0.7;">Catatan: <b><?= nl2br($value->catatan);?></b></span><br>
+                    <span style="font-size: 12px;  line-height: 0.7;">Lokasi: <b><?= nl2br($value->alamat_lokasi);?></b></span><br>
                     <span style="font-size: 12px;  line-height: 0.7;">Maps: <a href="https://www.google.com/maps?q=<?=$value->langtitude;?>,<?=$value->longtitude;?>" target="_BLANK"><i class="fa fa-map"></i></a> </span><br>
                   </td>
                   <td class="text-center" style="width: 100px;">
