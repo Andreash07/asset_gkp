@@ -67,14 +67,14 @@ $this->load->view('layout/header');
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
 			          			<select class="form-control" name="kategori_atas_nama">
 			          				<?php 
-			          					$hide_text="display: none;";
+			          					$hide_text="disabled";
 			          					foreach ($kategori_kepemilikan as $key2 => $value2) {
 			          						# code...
 				          					$selected="";
 				          					if($value->kategori_atas_nama == $value2->id){
 				          						$selected="selected";
 				          						if(in_array(strtolower($value2->name), array('pribadi','negara', 'mitra','badan pelayanan gkp'))){
-				          							$hide_text="display: show;";
+				          							$hide_text="";
 				          						}
 				          					}
 			          				?>
@@ -88,10 +88,9 @@ $this->load->view('layout/header');
 				        <div class="form-group">
 				          	<label class="control-label col-md-3 col-sm-3 col-xs-12">
 				          		Atas Nama
-				          		<span class="required">*</span>
 				          	</label>
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
-				            	<input type="text" class="form-control" id="autocomplete-custom-append" name="atas_nama" value="<?=$value->atas_nama;?>" placeholder="YPTK/YBRS/GPIB/GKI/TNI/Pemprov/dll">
+				            	<input type="text" class="form-control" id="autocomplete-custom-append" name="atas_nama" value="<?=$value->atas_nama;?>" placeholder="YPTK/YBRS/GPIB/GKI/TNI/Pemprov/dll" <?=$hide_text;?>>
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -341,6 +340,7 @@ function ambilLokasi() {
     $('#id_label_change').hide();
 }
 
+var last_atas_nama=$('#autocomplete-custom-append').val()
 	
 	$(document).on('change blur','[name=kategori_atas_nama]', function(){
 		val=$(this).val().toLowerCase()
@@ -348,10 +348,13 @@ function ambilLokasi() {
 		const text_show = ["3", "4", "5", "7"];
 		if(text_show.includes(val) == true){
 			//$('#autocomplete-custom-append').show()
+			$('#autocomplete-custom-append').val(last_atas_nama)			
+			$('#autocomplete-custom-append').removeAttr('disabled')
 		}
 		else{
-			//$('#autocomplete-custom-append').val('')			
+			$('#autocomplete-custom-append').val('')			
 			//$('#autocomplete-custom-append').hide()			
+			$('#autocomplete-custom-append').attr('disabled', 'disabled')
 		}
 	})
 	kategori_atas_nama_text=$.parseJSON('<?= json_encode($kategori_atas_nama_text, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT );?>')

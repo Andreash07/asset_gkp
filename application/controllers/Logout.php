@@ -28,6 +28,7 @@ class Logout extends CI_Controller {
 		$data=array();
     	$param=array();
         $this->session->unset_userdata('user');
+        $this->session->unset_userdata('private_attachment_unlocked');
         header('Location:'.base_url());
 	}
 }

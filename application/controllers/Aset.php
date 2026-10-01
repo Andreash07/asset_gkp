@@ -22,9 +22,14 @@ class Aset extends CI_Controller {
 	public function  __construct()
     {
         parent::__construct();
-
         if(!isset($this->session->userdata('user')->id) ){
-        	redirect(base_url().'login');
+        	if(in_array($this->router->fetch_method(), array('view_attachment'))){
+
+        	}else{
+        		//ini akan redirect jika bukan view_attachment tanpa login
+        		redirect(base_url().'login');
+
+        	}
         }
 
 
@@ -363,13 +368,73 @@ class Aset extends CI_Controller {
 
 	public function view_attachment($token){
 		$data=array();
-
+		#print_r($this->session->userdata()); die();
 		//get path dulu dari db
 		$token=clearText($token);
 		$sfile=$this->m_model->selectas('MD5(CONCAT("KJHkah1298AS*&",id))', $token, 'lampiran_assets');
 
+		$sts_private=0;
+		$lampiran_id=0;
+
 		if(count($sfile)==0){
 			redirect(base_url().'Page/NotFound');
+		}
+		else{
+			foreach ($sfile as $key => $value) {
+				// code...
+				$sts_private=$value->private; //1:secured; 0:public
+				$lampiran_id=$value->id;
+			}
+		}
+
+		$passkey="";
+		if($this->input->post('ajksdghk12e98')){
+			$passkey=$this->input->post('ajksdghk12e98');
+			#die($passkey);
+		}
+
+		if($sts_private==1){
+			//ini bearti dikunci, harus check passkey nya
+			if(($passkey==NULL || $passkey=='' || $passkey==FALSE) && !$this->session->userdata('private_attachment_unlocked') ){
+				$data['error']=-1;
+				$data['msg']="Passkey tidak dikenali, masukan passkey yang benar!";
+				$this->load->view('page/FormPasskey', $data);
+				return;
+
+			}else if($passkey!= NULL && $passkey!="" && $passkey!=FALSE ){
+				#die('asdasd');
+				//ini bearti ada submit passkey, jadi dicek dulu
+				//check dengan encryption md5, supaya jika ada character aneh, bisa langsung ikut terencrypt dan tidak mengacaukan query
+				$cekPK="select * from passkeys where MD5(passkey) = '".md5($passkey)."' && status=1 ";
+				$qcekPK=$this->m_model->selectcustom($cekPK);
+				#die($cekPK);
+
+				if(count($qcekPK) > 0){
+					//ini bearti passkey valid, bisa lanjut lihat file dan buat log used Passkey
+					$used_by="anonym"; 
+					foreach($qcekPK as $keyPK => $valuePk){
+						$used_at=date('Y-m-d H:i:s');
+						if(isset($this->session->userdata('user')->user_id) && $this->session->userdata('user')->user_id !='' ){
+							$used_by=$this->session->userdata('user')->user_id; 
+						}
+						$u1=$this->m_model->querycustom ("update passkeys set used=used+1, last_used_at='".$used_at."' where id='".$valuePk->id."'");
+						$ilog1=$this->m_model->insertgetid(array('passkey_id'=>$valuePk->id, 'lampiran_asset_id'=>$lampiran_id, 'used_at'=>$used_at, 'used_by'=>$used_by), 'passkey_used_logs');
+
+						$this->create_session_unlocked($valuePk);
+					}
+				}
+				else{
+					//ini Passkey error
+					$data['error']=1;
+					$data['msg']="Passkey tidak dikenali, masukan passkey yang benar!";
+					$this->load->view('page/FormPasskey', $data);
+					return;
+				}
+			}
+			else{
+				//ini jika ada session_temp untuk unlocked attachment
+				//private_attachment_unlocked true
+			}
 		}
 
 		$mime_img=array("image/png", "image/jpg", "image/jpeg", "image/jp2g");
@@ -433,6 +498,21 @@ class Aset extends CI_Controller {
 
 		echo json_encode($data);
 
+	}
+
+	private function create_session_unlocked($data=null){
+		if($data==null){
+			die('Access Denied!');
+		}
+		//buat session temporary untuk session unlocked
+		if($this->session->userdata('user') ){
+			//ini bearti sedang login
+			$this->session->set_tempdata('private_attachment_unlocked', true, 30);
+		}
+		else{
+			//ini bearti akses link tanpa login, hanya ada passkey
+			$this->session->set_tempdata('private_attachment_unlocked', true, 10);
+		}
 	}
 }
 

@@ -48,7 +48,7 @@ $this->load->view('aset/search_box');
                     // code...
                     $lokasi_dokumen='<b>di BP GKP</b>';
                     break;
-                  case '4':
+                  case '3':
                     // code...
                     $lokasi_dokumen='<b>di Jemaat</b>';
                     break;
@@ -274,4 +274,33 @@ $this->load->view('layout/footer');
       }
     })
   })
+
+  $(document).on('afterShow.fb', function(e, instance, slide) {
+    //alert('AFTER SHOW');
+    // Hapus tombol jika sudah ada
+    $('.fancybox-download').remove();
+
+    // Tambahkan tombol Download
+    $('.fancybox-toolbar').prepend(
+        '<button type="button" class="fancybox-button fancybox-download" title="Download">' +
+            '<i class="fa fa-download"></i>' +
+        '</button>'
+    );
+
+    // Event tombol Download
+    $('.fancybox-download').on('click', function(e) {
+        e.preventDefault();
+
+        var url = slide.src;
+
+        console.log('Download URL:', url);
+
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = '';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    });
+});
 </script>

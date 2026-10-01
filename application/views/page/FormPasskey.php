@@ -624,37 +624,31 @@
     <!-- ============= RIGHT / LOGIN ============= -->
     <section class="login-wrap" data-testid="login-section">
       <div class="login-card" role="region" aria-labelledby="login-title" data-testid="login-card">
-        <span class="caption" data-testid="login-caption">Welcome Back</span>
-        <h2 id="login-title" class="login-title" data-testid="login-title">Masuk ke Sistem</h2>
-        <p class="login-desc" data-testid="login-description">Silakan masuk menggunakan akun Anda.</p>
+        <span class="caption" data-testid="login-caption">&nbsp;</span>
+        <h2 id="login-title" class="login-title" data-testid="login-title">Verifikasi Passkey File</h2>
+        <p class="login-desc" data-testid="login-description">Silakan masukan <i>Passkey</i> untuk keamaan akses.</p>
 
-        <div class="alert" id="alert" role="alert" data-testid="login-alert">
+        <?php 
+          if($error==1){
+        ?>    
+        <div class="alert show" id="alert" role="alert" data-testid="login-alert">
           <i class="bi bi-exclamation-circle"></i>
-          <span id="alertMsg">Username dan password wajib diisi.</span>
+          <span id="alertMsg"><?=$msg;?></span>
         </div>
-
+        <?php 
+          }
+        ?>
         <div class="alert-green" id="alert-green" role="alert" data-testid="login-alert">
           <i class="bi bi-shield-check"></i>
           <span id="alertMsg">Username dan password terverifikasi.<br>Login Berhasil</span>
         </div>
 
-        <form id="loginForm" innovalidate data-testid="login-form" action="<?=base_url();?>login/authenticating" method="POST">
+        <form id="loginForm" data-testid="login-form" action="" method="POST">
           <div class="field">
-            <label for="username">Username</label>
-            <div class="input-group">
-              <i class="bi bi-person leading" aria-hidden="true"></i>
-              <input id="username" name="jashk12hashkjd" type="text" class="input" placeholder="Masukkan username Anda" autocomplete="username"required data-testid="username-input"/>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="password">Password</label>
+            <label for="password">Passkey</label>
             <div class="input-group">
               <i class="bi bi-lock leading" aria-hidden="true"></i>
-              <input id="password" name="i12u3asdlkh1j2lda" type="password" class="input" placeholder="Masukkan password Anda" autocomplete="current-password" required data-testid="password-input" />
-              <button type="button" class="toggle-pw" id="togglePw" aria-label="Tampilkan password" data-testid="toggle-password-button">
-                <i class="bi bi-eye" id="togglePwIcon"></i>
-              </button>
+              <input id="passkey" name="ajksdghk12e98" type="password" class="input" placeholder="Masukkan Passkey yang Anda miliki!" required data-testid="password-input" />
             </div>
           </div>
 
@@ -684,115 +678,7 @@
       </div>
     </section>
   </main>
-    <!-- jQuery -->
-
-    <!--<script src="<?=base_url();?>/vendors/jquery/dist/jquery.min.js"></script>-->
   <script>
-    (function () {
-      const form = document.getElementById('loginForm');
-      const username = document.getElementById('username');
-      const password = document.getElementById('password');
-      const togglePw = document.getElementById('togglePw');
-      const togglePwIcon = document.getElementById('togglePwIcon');
-      const alertBox = document.getElementById('alert');
-      const alertGreenBox = document.getElementById('alert-green');
-      const alertMsg = document.getElementById('alertMsg');
-      const submitBtn = document.getElementById('submitBtn');
-
-      // Toggle password visibility
-      togglePw.addEventListener('click', function () {
-        const isPw = password.type === 'password';
-        password.type = isPw ? 'text' : 'password';
-        togglePwIcon.className = isPw ? 'bi bi-eye-slash' : 'bi bi-eye';
-        togglePw.setAttribute('aria-label', isPw ? 'Sembunyikan password' : 'Tampilkan password');
-        password.focus();
-      });
-
-      function showAlert(msg) {
-        alertMsg.textContent = msg;
-        alertBox.classList.add('show');
-      }
-
-      function showAlertGreen(msg) {
-        //alertMsg.textContent = msg;
-        alertGreenBox.classList.add('show');
-      }
-      function hideAlert() {
-        alertBox.classList.remove('show');
-      }
-
-      [username, password].forEach(function (el) {
-        el.addEventListener('input', hideAlert);
-      });
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const u = username.value.trim();
-        const p = password.value.trim();
-
-        if (!u || !p) {
-          showAlert('Username dan password wajib diisi.');
-          if (!u) username.focus(); else password.focus();
-          return;
-        }
-        if (p.length < 4) {
-          showAlert('Password minimal 4 karakter.');
-          password.focus();
-          return;
-        }
-
-        // Simulate submit
-        submitBtn.classList.add('loading');
-        submitBtn.disabled = true;
-
-        //setTimeout(function () {
-          //submitBtn.classList.remove('loading');
-          //submitBtn.disabled = false;
-          //showAlert('Demo: koneksi ke server belum tersedia.');
-        //}, 1200);
-        //dataMap={}
-        //dataMap['jashk12hashkjd']=username
-        //dataMap['i12u3asdlkh1j2lda']=password
-        //$.post(form.getAttribute('action'), dataMap, function(data){
-          //json=$.parseJSON(data)
-
-        //})
-
-        fetch(form.getAttribute('action'), {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: new URLSearchParams({
-              jashk12hashkjd: username.value,
-              i12u3asdlkh1j2lda: password.value
-          })
-        })
-        .then(response => response.json())
-        .then(data => {
-          submitBtn.classList.remove('loading');
-          submitBtn.disabled = false;
-
-          if (data.status) {
-              // Login berhasil
-              showAlertGreen()
-              //alert('login berhasil')
-              setTimeout(function(){
-                window.location.href = '<?=base_url();?>';
-              }, 1500)
-          } else {
-              showAlert(data.message || 'Username atau password salah.');
-          }
-        })
-        .catch(error => {
-          submitBtn.classList.remove('loading');
-          submitBtn.disabled = false;
-
-          console.error(error);
-          showAlert('Terjadi kesalahan saat menghubungi server.');
-        });
-      });
-    })();
   </script>
 </body>
 </html>
