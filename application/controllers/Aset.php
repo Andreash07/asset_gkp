@@ -268,17 +268,19 @@ class Aset extends CI_Controller {
 
 		        $param=array();
 		        $param['asset_id']=$aset_id;
+		        $param['private']=1;
 		        $param['mime_type']=$data['upload_data']['file_type'];
 		        #$param['size']=$data['upload_data']['file_size'];
 		        $param['size']=$size; #byte
 		        $param['file_name']=$data['upload_data']['client_name'];
 		        $param['path']="78as98fd298a9s/".$name_file;
 		        $param['uploaded_at']=date('Y-m-d H:i:s');
-		        $param['upload_by']='7';
+		        #$param['upload_by']='7';
+		        $param['upload_by']=$this->session->userdata('user')->id;
 
 		        $i=$this->m_model->insertgetid($param, 'lampiran_assets');
 		        if($i>0){
-				$json['sts']=2;
+					$json['sts']=2;
 		        }
 	        }
 

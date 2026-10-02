@@ -27,6 +27,8 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /78as98fd298a9s/*
 /asset_gkp/*
 
+!/vendors/dropzone/dist/dropzone.js
+
 # IDE Files
 #-------------------------
 /nbproject/
