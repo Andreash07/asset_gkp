@@ -56,3 +56,10 @@ $route['translate_uri_dashes'] = FALSE;
 $route['administrator/users/edit'] = 'administrator/users_edit';
 $route['administrator/users/add'] = 'administrator/users_add';
 $route['administrator/users/simpan'] = 'administrator/users_simpan';
+
+
+$route['administrator/passkeys/edit'] = 'administrator/passkeys_edit';
+$route['administrator/passkeys/add'] = 'administrator/passkeys_add';
+$route['administrator/passkeys/status'] = 'administrator/passkeys_status';
+$route['administrator/passkeys/simpan'] = 'administrator/passkeys_simpan';
+$route['passkey/generator'] = 'administrator/passkeys_generator';

@@ -85,6 +85,7 @@
                 <li><a><i class="fa fa-server"></i> Administrator <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="<?=base_url();?>administrator/users">User</a></li>
+                    <li><a href="<?=base_url();?>administrator/passkeys">Passkey</a></li>
                   </ul>
                 </li>
               <?php 

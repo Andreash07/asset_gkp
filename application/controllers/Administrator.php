@@ -334,6 +334,92 @@ class Administrator extends CI_Controller {
 		echo json_encode($data);
 
 	}
+
+	public function passkeys(){
+		$data=array();
+		$s="select A.*, SUM(num_used) as tot_used, C.num_share, C.num_recipients, `jasdhk12hHKSJd1` as passkey
+				from passkeys A
+				left join (select *, COUNT(id) as num_used, COUNT(id) as num_used_perlampiran from passkey_used_logs group by passkey_id, lampiran_asset_id)  B on B.passkey_id = A.id 
+				left join (select *, COUNT(id) as num_share, COUNT(id) as num_recipients from passkey_distribution_logs group by passkey_id, recipients)  C on C.passkey_id = A.id 
+				where A.id > 0
+				group by A.id;";
+		$q=$this->m_model->selectcustom($s);
+		$data['data']=$q;
+		$this->load->view('administrator/passkeys/index', $data);
+
+	}
+
+	public function passkeys_add(){
+		$data=array();
+
+		$this->load->view('administrator/passkeys/add', $data);
+
+	}
+
+	public function passkeys_simpan(){
+		$data=array();
+		$param=array();
+		$param['jasdhk12hHKSJd1']=$this->input->post('aljsdhaklsdamn11238');
+		$param['valid_to']=NULL;
+		$param['used']='0';//operator
+		$param['created_by']=$this->session->userdata('user')->id;//operator
+		$param['created_at']=date('Y-m-d H:i:s');
+		$param['status']='1';
+		$param['notes']='';
+		$i=$this->m_model->insertgetid($param, 'passkeys');
+
+		redirect(base_url().'administrator/passkeys');
+
+	}
+
+	public function passkeys_status(){
+		#print_r($this->session->userdata('user')); die();
+		$data=array();
+		$recid=$this->input->post('auth');
+		$param=array();
+		$param['last_used_at']=date('Y-m-d H:i:s');
+		$param['status']='0';
+		$param['notes']='Non-Aktif oleh '.$this->session->userdata('user')->firstname;
+		$u=$this->m_model->updateas("MD5(CONCAT('&*(61dgag1', id))='".$recid."'", NULL, $param, 'passkeys');
+
+		$data['status']=0;
+		$data['msg']='Update status Gagal, Hubungi IT Administrator!';
+		if($u){
+			$data['status']=1;
+			$data['msg']='Update status Berhasil!';
+		}
+
+		echo json_encode($data);
+
+
+	}
+
+	public function passkeys_generator(){
+		$letters  = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+	    $numbers  = '23456789';
+	    $specials = '!@#$%^&*()_';
+
+	    // 1 angka
+	    $passkey = $numbers[random_int(0, strlen($numbers) - 1)];
+
+	    // 1 special character
+	    $passkey .= $specials[random_int(0, strlen($specials) - 1)];
+
+	    // 6 karakter bebas
+	    $all_chars = $letters . $numbers . $specials;
+
+	    for ($i = 0; $i < 6; $i++) {
+	        $passkey .= $all_chars[random_int(0, strlen($all_chars) - 1)];
+	    }
+
+	    // Acak posisi karakter
+	    $passkey = str_shuffle($passkey);
+
+	    echo json_encode([
+	        'status'  => true,
+	        'passkey' => $passkey
+	    ]);
+	}
 }
 
 

@@ -405,7 +405,7 @@ class Aset extends CI_Controller {
 				#die('asdasd');
 				//ini bearti ada submit passkey, jadi dicek dulu
 				//check dengan encryption md5, supaya jika ada character aneh, bisa langsung ikut terencrypt dan tidak mengacaukan query
-				$cekPK="select * from passkeys where MD5(passkey) = '".md5($passkey)."' && status=1 ";
+				$cekPK="select * from passkeys where MD5(jasdhk12hHKSJd1) = '".md5($passkey)."' && status=1 ";
 				$qcekPK=$this->m_model->selectcustom($cekPK);
 				#die($cekPK);
 
@@ -507,11 +507,11 @@ class Aset extends CI_Controller {
 		//buat session temporary untuk session unlocked
 		if($this->session->userdata('user') ){
 			//ini bearti sedang login
-			$this->session->set_tempdata('private_attachment_unlocked', true, 30);
+			$this->session->set_tempdata('private_attachment_unlocked', true, 900);
 		}
 		else{
 			//ini bearti akses link tanpa login, hanya ada passkey
-			$this->session->set_tempdata('private_attachment_unlocked', true, 10);
+			$this->session->set_tempdata('private_attachment_unlocked', true, 300);
 		}
 	}
 }
