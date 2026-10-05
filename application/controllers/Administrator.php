@@ -420,6 +420,76 @@ class Administrator extends CI_Controller {
 	        'passkey' => $passkey
 	    ]);
 	}
+
+	public function passkeys_share(){
+		$data=array();
+		$auth=$this->input->post('auth');
+		//$sent_to=$this->input->post('user_id');
+		$recipient=$this->input->post('recipient');
+		$s="select * from passkeys where MD5(CONCAT('263^!&AHjgaah^!&', id)) = '".$auth."'";
+		$q=$this->m_model->selectcustom($s);
+		$passkey_id="0";
+		foreach ($q as $key => $value) {
+			# code...
+			$data['passkey']=$value->jasdhk12hHKSJd1;
+			$passkey_id=$value->id;
+		}
+		$data['recipient']=$recipient;
+
+		$sendingEmail=$this->sendPasskeytoEmail($data);
+		if($sendingEmail){
+			$param=array();
+			$param['passkey_id']=$passkey_id;
+			$param['recipients']=$recipient;
+			$param['sent_at']=date('Y-m-d H:i:s');
+			$param['sent_by']=$this->session->userdata('user')->id;
+
+			$this->m_model->insertgetid($param, 'passkey_distribution_logs');
+		}
+
+	}
+
+	private function sendPasskeytoEmail($data_email){
+		$this->load->library('email');
+		$data=array();
+
+		$logoUrl = base_url().'assets/images/logo-gkp.png';
+		$message = $this->load->view('emails/otp', array('passkey' => $data_email['passkey'],'logoUrl'  => $logoUrl) ,TRUE);
+
+		$config=array();
+        $config['protocol'] = 'smtp';
+        $config['smtp_host'] = 'mail.gkp.or.id';
+        $config['smtp_user'] = 'no-reply@gkp.or.id';
+        $config['smtp_pass'] = 'J@g@R@h4sia!t8pp!@#';
+
+        $config['smtp_port']   = 587;
+		$config['smtp_crypto'] = 'tls';
+
+		$config['mailtype']    = 'html';
+		$config['charset']     = 'utf-8';
+		$config['wordwrap']    = TRUE;
+
+		$config['newline']     = "\r\n";
+		$config['crlf']        = "\r\n";
+
+
+
+		$this->email->initialize($config);
+
+	 	$this->email->to($data_email['recipient']);
+        $this->email->from('no-reply@gkp.or.id');
+        $this->email->subject('Passkey - Sistem Asset GKP');
+        $this->email->message($message);
+        if ($this->email->send()) {
+		    // sukses
+		    return TRUE;
+
+		} else {
+		    // gagal
+        	$debug = $this->email->print_debugger();
+		    return $debug;
+		}
+	}
 }
 
 

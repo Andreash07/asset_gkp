@@ -187,6 +187,7 @@ class Aset extends CI_Controller {
 		$param['longtitude']=$this->input->post('lng');
 		$param['jemaat_id']=$this->input->post('jemaat_pengelola');
 		$param['no_dokumen']=$this->input->post('no_dokumen');
+		$param['approved']=0;
 
 
 

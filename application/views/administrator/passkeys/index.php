@@ -31,6 +31,7 @@ $this->load->view('layout/header');
                 <th class="text-center" style="width: 100px;">#</th>
                 <th class="text-center">Passkey</th>
                 <th class="text-center">Used</th>
+                <th class="text-center" style="width: 150px;">Status</th>
                 <th class="text-center" style="width: 150px;">Tindakan</th>
               </tr>
             </thead>
@@ -66,6 +67,9 @@ $this->load->view('layout/header');
                     <?php 
                       }
                     ?>
+                  </td>
+                  <td class="text-center">
+                    <button title="Kirim Passkey ke Email Tujuan" class="btn btn-xs btn-success"><i class="fa fa-paper-plane"></i></button>
                   </td>
                 </tr>
               <?php 
