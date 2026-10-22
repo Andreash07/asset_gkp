@@ -141,6 +141,32 @@ class Aset extends CI_Controller {
 
 	}
 
+
+	public function form_persetujuan(){
+		$data=array();
+		$auth=$this->input->post('auth');
+		$s="select A.*
+			from assets A 
+			where MD5(CONCAT('JKgh1279abk1!',A.id))='".$auth."'";
+		$q=$this->m_model->selectcustom($s);
+		$data['data']=$q;
+
+		$qjemaat=$this->m_model->selectas('id >=0 ', null, 'jemaat');
+		$data['jemaat']=$qjemaat;
+
+		$data['jenis_dokumen_kepemilikan']=$this->m_model->selectas('id>=0', null, 'jenis_dokumen_kepemilikan');
+		$data['kategori_kepemilikan']=$this->m_model->selectas('id>=0', null, 'kategori_kepemilikan');
+		$data['jenis_hak_milik']=$this->m_model->selectas('id>=0', null, 'jenis_hak_milik');
+
+		$data['kategori_atas_nama_text'][]=array('value'=>'YBRS');
+		$data['kategori_atas_nama_text'][]=array('value'=>'YBPK');
+		$data['kategori_atas_nama_text'][]=array('value'=>'YPT');
+		$data['kategori_atas_nama_text'][]=array('value'=>'YKB');
+
+		$this->load->view('aset/form_persetujuan', $data);
+
+	}
+
 	public function add(){
 		$data=array();
 		$qjemaat=$this->m_model->selectas('id >=0 ', null, 'jemaat');
@@ -170,7 +196,35 @@ class Aset extends CI_Controller {
 		$param=array();
 
 		$recid=$this->input->post('recid');
-		#print_r($this->input->post());die();
+		#print_r($this->input->post());echo "<br>";
+		echo count($this->input->post());
+		#die();
+		$num_update=0;
+		foreach ($this->input->post() as $key => $value) {
+			// code...
+			#if(strpos($key, '_old') === FALSE || $key == $key.'_old'){
+				//diskip aja bearti ini bukan field yg bisa di edit 
+				//atau ini field oldnya sendiri diskip aja
+			#	continue;
+			#}
+			#echo ($value);
+			#echo "<br>";
+			#echo ($key);
+			#echo "<br>";
+			#echo ($this->input->post($key.'_old'));
+			//die('asdasdas');
+			if( $this->input->post($key.'_old') ){
+				#echo "<br>";
+				#echo ($value);
+				#echo "<br>";
+				#die($key);
+				//ini bearti ada field oldnya
+				if($this->input->post($key.'_old') != $value ){
+					//kalau gak sama bearti ada perubahan
+					$num_update++;
+				}
+			}
+		}
 
 		$param['peruntukan_tanah']=$this->input->post('peruntukan_tanah');
 		$param['atas_nama']=$this->input->post('atas_nama');
@@ -187,7 +241,13 @@ class Aset extends CI_Controller {
 		$param['longtitude']=$this->input->post('lng');
 		$param['jemaat_id']=$this->input->post('jemaat_pengelola');
 		$param['no_dokumen']=$this->input->post('no_dokumen');
-		$param['approved']=0;
+		//$param['approved']=0;
+		#echo $num_update;		die();
+		if($num_update >0){
+			$param['approved']=3;
+			$param['edited_at']=date('Y-m-d H:i:s');
+			$param['edited_by']=$this->session->userdata('user')->id;
+		}
 
 
 

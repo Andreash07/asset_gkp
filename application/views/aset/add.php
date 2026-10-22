@@ -24,15 +24,6 @@ $this->load->view('layout/header');
 				        </div>
 				        <div class="form-group">
 				          	<label class="control-label col-md-3 col-sm-3 col-xs-12">
-				          		Nama Aset
-				          		<span class="required">*</span>
-				          	</label>
-			          		<div class="col-md-9 col-sm-9 col-xs-12">
-				            	<input type="text" class="form-control" placeholder="ex: Rumah Pastori  I" name="peruntukan_tanah" value="">
-				          	</div>
-				        </div>
-				        <div class="form-group">
-				          	<label class="control-label col-md-3 col-sm-3 col-xs-12">
 				          		Jemaat Pengelola Aset
 				          		<span class="required">*</span>
 				          	</label>
@@ -47,6 +38,15 @@ $this->load->view('layout/header');
 				            	}
 				            	?>
 			          			</select>
+				          	</div>
+				        </div>
+				        <div class="form-group">
+				          	<label class="control-label col-md-3 col-sm-3 col-xs-12">
+				          		Nama Aset
+				          		<span class="required">*</span>
+				          	</label>
+			          		<div class="col-md-9 col-sm-9 col-xs-12">
+				            	<input type="text" class="form-control" placeholder="ex: Rumah Pastori  I" name="peruntukan_tanah" value="">
 				          	</div>
 				        </div>
 				        <div class="form-group">

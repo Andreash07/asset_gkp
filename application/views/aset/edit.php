@@ -18,7 +18,9 @@ $this->load->view('layout/header');
         					$long=$value->longtitude;
         				?>
         				<input type="hidden" name="lat" id="lat" value="<?=$lat;?>">
+        				<input type="hidden" name="lat_old" id="lat_old" value="<?=$lat;?>">
         				<input type="hidden" name="lng" id="lng"  value="<?=$long;?>">
+        				<input type="hidden" name="lng_old" id="lng_old"  value="<?=$long;?>">
         				<input type="hidden" name="recid" id="recid"  value="<?=$value->id;?>">
         				<div class="form-group">
 				          	<label class="control-label col-md-3 col-sm-3 col-xs-12">
@@ -26,15 +28,6 @@ $this->load->view('layout/header');
 				          	</label>
 				          	<div class="col-md-9 col-sm-9 col-xs-12">
 				            	<input type="text" class="form-control" disabled="disabled" value="<?=$value->id;?>" placeholder="Auto">
-				          	</div>
-				        </div>
-				        <div class="form-group">
-				          	<label class="control-label col-md-3 col-sm-3 col-xs-12">
-				          		Nama Aset
-				          		<span class="required">*</span>
-				          	</label>
-			          		<div class="col-md-9 col-sm-9 col-xs-12">
-				            	<input type="text" class="form-control" placeholder="ex: Rumah Pastori  I" name="peruntukan_tanah" value="<?=$value->peruntukan_tanah;?>">
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -57,6 +50,17 @@ $this->load->view('layout/header');
 				            	}
 				            	?>
 			          			</select>
+			          			<input type="hidden" name="jemaat_pengelola_old" value="<?=$value->jemaat_id ;?>">
+				          	</div>
+				        </div>
+				        <div class="form-group">
+				          	<label class="control-label col-md-3 col-sm-3 col-xs-12">
+				          		Nama Aset
+				          		<span class="required">*</span>
+				          	</label>
+			          		<div class="col-md-9 col-sm-9 col-xs-12">
+				            	<input type="text" class="form-control" placeholder="ex: Rumah Pastori  I" name="peruntukan_tanah" value="<?=$value->peruntukan_tanah;?>">
+				            	<input type="hidden" name="peruntukan_tanah_old" value="<?=$value->peruntukan_tanah ;?>">
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -83,6 +87,7 @@ $this->load->view('layout/header');
 			          					}
 			          				?>
 			          			</select>
+			          			<input type="hidden" name="kategori_atas_nama_old" value="<?=$value->kategori_atas_nama ;?>">
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -91,6 +96,8 @@ $this->load->view('layout/header');
 				          	</label>
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
 				            	<input type="text" class="form-control" id="autocomplete-custom-append" name="atas_nama" value="<?=$value->atas_nama;?>" placeholder="YPTK/YBRS/GPIB/GKI/TNI/Pemprov/dll" <?=$hide_text;?>>
+
+				            	<input type="hidden" class="form-control" name="atas_nama_old" value="<?=$value->atas_nama;?>" placeholder="YPTK/YBRS/GPIB/GKI/TNI/Pemprov/dll" <?=$hide_text;?>>
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -113,6 +120,7 @@ $this->load->view('layout/header');
 			          				}
 			          				?>
 			          			</select>
+				            	<input type="hidden" class="form-control" name="jenis_dokumen_kepemilikan_old" value="<?=$value->jenis_dokumen_kepemilikan;?>">
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -135,6 +143,7 @@ $this->load->view('layout/header');
 			          				}
 			          				?>
 			          			</select>
+				            	<input type="hidden" class="form-control" name="status_hak_milik_old" value="<?=$value->status_hak_milik;?>">
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -144,6 +153,7 @@ $this->load->view('layout/header');
 				          	</label>
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
 				            	<input type="text" class="form-control" placeholder="Nomor Dokumen Kepemilikan" name="no_dokumen" value="<?=$value->no_dokumen;?>">
+				            	<input type="text" class="form-control" placeholder="Nomor Dokumen Kepemilikan" name="no_dokumen_old" value="<?=$value->no_dokumen;?>">
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -153,6 +163,7 @@ $this->load->view('layout/header');
 				          	</label>
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
 				            	<input type="text" class="form-control" placeholder="ex: 756" name="luas" value="<?=$value->luas;?>">
+				            	<input type="text" class="form-control" placeholder="ex: 756" name="luas_old" value="<?=$value->luas;?>">
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -171,6 +182,7 @@ $this->load->view('layout/header');
 			          				<option value="3" <?php if($value->sts_sertifikat_disinode=='3'){ echo "selected"; } ?>>Jemaat</option>
 			          				<option value="0" <?php if($value->sts_sertifikat_disinode=='0'){ echo "selected"; } ?>>Tidak diketahui</option>
 			          			</select>
+				            	<input type="hidden" class="form-control" name="sts_sertifikat_disinode_old" value="<?=$value->sts_sertifikat_disinode;?>">
 			          		</div>
 				        </div>
 				        <div class="form-group">
@@ -180,6 +192,7 @@ $this->load->view('layout/header');
 				          	</label>
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
 				            	<textarea class="form-control" placeholder="Lokasi Penempatan Sertifikat" title="Lokasi Penempatan Sertifikat" name="keterangan" rows="5"><?=$value->keterangan;?></textarea>
+				            	<textarea style="display:none" class="form-control" placeholder="Lokasi Penempatan Sertifikat" title="Lokasi Penempatan Sertifikat" name="keterangan_old" rows="5"><?=$value->keterangan;?></textarea>
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -189,6 +202,7 @@ $this->load->view('layout/header');
 				          	</label>
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
 				            	<textarea class="form-control" placeholder="Catatan" name="catatan" rows="5"><?=$value->catatan;?></textarea>
+				            	<textarea style="display:none" class="form-control" placeholder="Catatan" name="catatan_old" rows="5"><?=$value->catatan;?></textarea>
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -198,6 +212,7 @@ $this->load->view('layout/header');
 				          	</label>
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
 			          			<textarea title="Alamat Lokasi sesuai Dokumen Kepemilikan" class="form-control" placeholder="Alamat Lokasi sesuai Dokumen Kepemilikan" name="alamat_lokasi" rows="5"><?=$value->alamat_lokasi;?></textarea>
+			          			<textarea style="display:none" title="Alamat Lokasi sesuai Dokumen Kepemilikan" class="form-control" placeholder="Alamat Lokasi sesuai Dokumen Kepemilikan" name="alamat_lokasi_old" rows="5"><?=$value->alamat_lokasi;?></textarea>
 				          	</div>
 				        </div>
 				        <div class="form-group">

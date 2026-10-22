@@ -437,6 +437,8 @@ class Administrator extends CI_Controller {
 		$data['recipient']=$recipient;
 
 		$sendingEmail=$this->sendPasskeytoEmail($data);
+		$data['status']=0;
+		$data['msg']="Gagal mengirimkan Passkey, Silahkan Hubungi IT Administrator!";
 		if($sendingEmail){
 			$param=array();
 			$param['passkey_id']=$passkey_id;
@@ -445,16 +447,25 @@ class Administrator extends CI_Controller {
 			$param['sent_by']=$this->session->userdata('user')->id;
 
 			$this->m_model->insertgetid($param, 'passkey_distribution_logs');
+
+			$data['status']=1;
+			$data['msg']="Berhasil mengirimkan Passkey, Silahkan cek Email Anda!";
 		}
 
+		echo json_encode($data);
 	}
 
 	private function sendPasskeytoEmail($data_email){
+		#$logoUrl = base_url().'assets/images/logo-gkp.png';
+		$logoUrl = 'https://gkp.or.id/wp-content/uploads/2019/04/cropped-gkp-1-2.png';
 		$this->load->library('email');
+		#print_r($data_email);
+		#$this->load->view('emails/share_passkey', array('passkey' => $data_email['passkey'],'logoUrl'  => $logoUrl) );
+		#return;
+		# die();
 		$data=array();
 
-		$logoUrl = base_url().'assets/images/logo-gkp.png';
-		$message = $this->load->view('emails/otp', array('passkey' => $data_email['passkey'],'logoUrl'  => $logoUrl) ,TRUE);
+		$message = $this->load->view('emails/share_passkey', array('passkey' => $data_email['passkey'],'logoUrl'  => $logoUrl) ,TRUE);
 
 		$config=array();
         $config['protocol'] = 'smtp';

@@ -69,7 +69,7 @@ $this->load->view('layout/header');
                     ?>
                   </td>
                   <td class="text-center">
-                    <button title="Kirim Passkey ke Email Tujuan" class="btn btn-xs btn-success"><i class="fa fa-paper-plane"></i></button>
+                    <button id="btn_share_passkey_<?=uniqid();?>" title="Kirim Passkey ke Email Tujuan" class="btn btn-xs btn-success" token="<?=md5('263^!&AHjgaah^!&'.$value->id);?>"><i class="fa fa-paper-plane"></i></button>
                   </td>
                 </tr>
               <?php 
@@ -89,6 +89,32 @@ $this->load->view('layout/footer');
 
 <script>
   //$(document).on('blur change', '[id^=rename_att]', function(e){
+  $(document).on('click', '[id=send_passkey_exec]', function(e){
+    e.preventDefault()
+    dataMap={}
+    dataMap=$('#form_penerima_passkey').serialize();
+    $.post('<?=base_url();?>Administrator/passkeys_share', dataMap, function(data){
+      json=$.parseJSON(data)
+      if(json.status==1){
+        iziToast.success({
+          title: json.msg,
+          message: '',
+          position: "topRight",
+          class: "iziToast-success",
+
+        });
+      }else{
+        iziToast.error({
+          title: json.msg,
+          message: '',
+          position: "topRight",
+          class: "iziToast-error",
+
+        });
+      }
+    })
+  })
+
   $(document).on('change', '[id^=status_]', function(e){
     if(!confirm($(this).attr('akun'))){
       return false
@@ -104,7 +130,7 @@ $this->load->view('layout/footer');
           title: json.msg,
           message: '',
           position: "topRight",
-          class: "iziToast-succes",
+          class: "iziToast-success",
 
         });
       }else{
@@ -112,7 +138,7 @@ $this->load->view('layout/footer');
           title: json.msg,
           message: '',
           position: "topRight",
-          class: "iziToast-succes",
+          class: "iziToast-error",
 
         });
       }
@@ -123,5 +149,29 @@ $this->load->view('layout/footer');
 
     })
 
+  })
+
+
+  $(document).on('click touchstart', '[id^=btn_share_passkey_]', function(e){
+    e.preventDefault();
+    $('#myModal2').modal('show')
+    token=$(this).attr('token')
+    $('#modal-content2').html(
+      '<div class="modal-header">'+
+        '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>'+
+        '</button>'+
+        '<h4 class="modal-title" id="myModalLabel">Email Penerima</h4>'+
+      '</div>'+
+      '<div class="modal-body">'+
+        '<form id="form_penerima_passkey">'+
+          '<input type="hidden" name="auth" id="auth" value="'+token+'">'+
+          '<div class="form-group">'+
+            '<input type="email" name="recipient" id="recipient" class="form-control">'+
+          '</div>'+
+          '<div class="form-group">'+
+            '<button id="send_passkey_exec" class="btn btn-warning">Kirim <i class="fa fa-paper-plane"></i></button>'+
+          '</div>'+
+        '</form>'+
+      '</div>')
   })
 </script>

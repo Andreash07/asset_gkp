@@ -66,6 +66,22 @@
 
 <!-- frame modal2 -->
 
+<!-- frame modal3 big -->
+
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal3">
+
+    <div class="modal-dialog  modal-lg" role="document" style="width:80%;">
+
+        <div class="modal-content" id="modal-content3">
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- frame modal2 -->
+
 
 
     <!-- Bootstrap -->
@@ -186,6 +202,32 @@
                    load_lampiran()
                 }, 500)
             })
+        })
+
+        $(document).on('click touchstart', '[id^=btn-persetujuan]', function(e){
+            e.preventDefault()
+            dataMap={}
+            dataMap['auth']=$(this).attr('auth')
+            $('#myModal3').modal('show')
+            $.post('<?=base_url();?>/Aset/form_persetujuan', dataMap, function(data){
+                $('#modal-content3').html(data)
+            })
+        })
+
+        $(document).on('click touchstart', '[id=btn_disagree]', function(e){
+            e.preventDefault()
+            auth=$(this).attr('auth')
+            
+        })
+
+        $(document).on('click touchstart', '[id=btn_agree]', function(e){
+            e.preventDefault()
+            dataMap={}
+            dataMap['auth']=$(this).attr('auth')
+            if(confirm('Apakah Anda yakin untuk Menyetujui Data Aset ini?')==false){
+                return false;
+            } 
+            window.location.href = "<?=base_url();?>Aset/approve";
         })
 
         $(document).on('click', '[id=add_item]', function(e){

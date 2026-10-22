@@ -70,6 +70,13 @@ $this->load->view('aset/search_box');
                     <span style="font-size: 12px;  line-height: 0.7;">Luas: <b><?=$value->luas;?> M²</b></span><br>
                     <span style="font-size: 12px;  line-height: 0.7;">Lokasi: <b><?= nl2br($value->alamat_lokasi);?></b></span><br>
                     <span style="font-size: 12px;  line-height: 0.7;">Maps: <a href="https://www.google.com/maps?q=<?=$value->langtitude;?>,<?=$value->longtitude;?>" target="_BLANK"><i class="fa fa-map"></i></a> </span><br>
+                    <?php 
+                    if($value->approved=='3'){ 
+                    ?>
+                      <label style="font-size: 12px;  line-height: 0.7;" class="label label-warning">Ada Perubahan, Perlu Persetujaun Ulang!</b></label>
+                    <?php 
+                    }
+                    ?>
                   </td>
                   <td class="text-center" style="width: 100px;">
                     <div class="btn btn-success btn-xs" title="Unggah Lampiran" id="btn-formuploadlampiran<?=$value->id;?>" href="<?=base_url().'aset/form_upload_lampiran?auth='.base64_encode($value->id."*92837ads0f87");?>" nama_asset="<?=$value->peruntukan_tanah." (".$value->jemaat.")"; ?>"><i class="fa fa-files-o"></i></div>
@@ -78,18 +85,20 @@ $this->load->view('aset/search_box');
                     <div class="btn btn-danger btn-xs" title="Hapus Data" id="btn_hapus-Mutasi<?=$value->id;?>" href="<?=base_url().'aset/detele?token='.md5($value->id.'jHGSj2898!aA');?>"><i class="fa fa-trash"></i></div>
                     <div class="divider"></div>
                     <?php 
+                      $lbl_approved="";
                       if(in_array($this->session->userdata('user')->user_role, array(2,3))){
-                        $checked="";
-                        if($value->approved==1){
-                          $checked="checked";
-                        }
+                        if(!in_array($value->approved, array(1,2)) ){
+                          #muncul jika status belum disetujui 
                     ?>
-                      <select name="approve_asset<?=$value->id;?>" id="approve_asset<?=$value->id;?>" class="form-control" token="<?=md5('asek21gjhd!^d'.$value->id);?>">
-                        <option value="0" style="color: gray;" <?php if($value->approved=='0'){ echo "selected" ;}?>>Belum Disetujui</option>
-                        <option value="1" style="color: green;" <?php if($value->approved=='1'){ echo "selected" ;}?>>Disetujui</option>
-                        <option value="2" style="color: red;" <?php if($value->approved=='2'){ echo "selected" ;}?>>Tidak Disetujui</option>
-                      </select>
+                      <a class="btn btn-warning" id="btn-persetujuan<?=$value->id;?>" auth="<?=md5('JKgh1279abk1!'.$value->id);?>">Persetujuan</a>
                     <?php 
+                        }
+                        else if($value->approved==2){
+                          $lbl_approved='<label class="label label-danger">Tidak Disetujui</label>';
+                        }
+                        else{ 
+                          $lbl_approved='<label class="label label-success">Disetujui</label>';
+                        }
                       }else{
                         $lbl_approved='<label class="label label-warning">Belum Disetujui</label>';
                         if($value->approved==1){
@@ -98,12 +107,9 @@ $this->load->view('aset/search_box');
                         else if($value->approved==2){
                           $lbl_approved='<label class="label label-danger">Tidak Disetujui</label>';
                         }
-
-                    ?>
-                      <?=$lbl_approved;?>
-                    <?php 
                       }
                     ?>
+                    <?=$lbl_approved;?>
 
                   </td>
                 </tr>
@@ -246,6 +252,13 @@ $this->load->view('layout/footer');
   })
 
   $(document).on('change', '[id^=approve_asset]', function(e){
+    previousValueSts=$(this).attr('old')
+    //console.log(previousValueSts)
+    if(confirm('Apakah Anda yakin ingin mengubah Status dari Data Aset ini?')==false){
+      $(this).val(previousValueSts);
+      //console.log(previousValueSts)
+      return false;
+    } 
     token=$(this).attr('token');
     value=$(this).val();
     dataMap={}
@@ -259,9 +272,11 @@ $this->load->view('layout/footer');
           message: '',
           position: "topRight",
           class: json.class_alert,
-
         });
 
+        setTimeout(function() {
+          window.location.reload();
+        }, 1000);
       }
       else{
         iziToast.error({
