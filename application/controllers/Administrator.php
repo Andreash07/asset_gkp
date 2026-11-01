@@ -476,12 +476,17 @@ class Administrator extends CI_Controller {
         $config['smtp_port']   = 587;
 		$config['smtp_crypto'] = 'tls';
 
+		#$config['smtp_port']   = 465;
+		#$config['smtp_crypto'] = 'ssl';
+
 		$config['mailtype']    = 'html';
 		$config['charset']     = 'utf-8';
 		$config['wordwrap']    = TRUE;
 
 		$config['newline']     = "\r\n";
 		$config['crlf']        = "\r\n";
+		$config['smtp_timeout']        = 30;
+
 
 
 
