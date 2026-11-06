@@ -367,6 +367,10 @@ $(document).ready(function() {
 </script>
 
 
-<script async defer
+<!--<script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqPHsLQcjob80TLNC2egJKVxPLbPxU9wg&libraries=places&callback=initMap&version=<?=microtime();?>">
+</script> --><!-- api mikgoogle --> <!-- MIK -->
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAriky-vgNQRXhWjktS-Eivm_w4mXxKbwU&libraries=places&callback=initMap&version=<?=microtime();?>">
 </script> <!-- api mikgoogle -->
