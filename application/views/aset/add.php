@@ -78,7 +78,7 @@ $this->load->view('layout/header');
 				          		Atas Nama
 				          	</label>
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
-				            	<input type="text" class="form-control" placeholder="Atas Nama Aset secara Administrasi" name="atas_nama" value="" id="autocomplete-custom-append" disabled>
+				            	<input type="text" class="form-control" placeholder="Atas Nama Aset secara Administrasi" name="atas_nama" value="" id="autocomplete-custom-append" indisabled>
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -350,10 +350,10 @@ $(document).on('change blur','[name=kategori_atas_nama]', function(){
 		}
 		else{
 			$('#autocomplete-custom-append').val('')			
-			$('#autocomplete-custom-append').attr('disabled', 'disabled')
+			//$('#autocomplete-custom-append').attr('disabled', 'disabled')
 		}
 	})
-	kategori_atas_nama_text=$.parseJSON('<?= json_encode($kategori_atas_nama_text, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);?>')
+	kategori_atas_nama_text=$.parseJSON('<?= json_encode($kategori_atas_nama_text, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE);?>')
 	$('#autocomplete-custom-append').autocomplete({
 		minChars: 1,
 		lookup: kategori_atas_nama_text

@@ -85,6 +85,7 @@ $this->load->view('layout/header');
 			          						<option <?=$selected;?> value="<?=$value2->id;?>"><?=$value2->name;?></option>
 			          				<?php 
 			          					}
+	          							$hide_text=""; //dibuka aja dulu
 			          				?>
 			          			</select>
 			          			<input type="hidden" name="kategori_atas_nama_old" value="<?=$value->kategori_atas_nama ;?>">
@@ -364,15 +365,15 @@ var last_atas_nama=$('#autocomplete-custom-append').val()
 		if(text_show.includes(val) == true){
 			//$('#autocomplete-custom-append').show()
 			$('#autocomplete-custom-append').val(last_atas_nama)			
-			$('#autocomplete-custom-append').removeAttr('disabled')
+			//$('#autocomplete-custom-append').removeAttr('disabled')
 		}
 		else{
 			$('#autocomplete-custom-append').val('')			
 			//$('#autocomplete-custom-append').hide()			
-			$('#autocomplete-custom-append').attr('disabled', 'disabled')
+			//$('#autocomplete-custom-append').attr('disabled', 'disabled')
 		}
 	})
-	kategori_atas_nama_text=$.parseJSON('<?= json_encode($kategori_atas_nama_text, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT );?>')
+	kategori_atas_nama_text=$.parseJSON('<?= json_encode($kategori_atas_nama_text, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE);?>')
 	$('#autocomplete-custom-append').autocomplete({
 		minChars: 1,
 		lookup: kategori_atas_nama_text
