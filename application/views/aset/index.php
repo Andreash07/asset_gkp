@@ -35,7 +35,7 @@ $this->load->view('aset/search_box');
             </thead>
             <tbody>
               <?php 
-              $i=1;
+              $i=1+$numStart;
               foreach ($data as $key => $value) {
                 # code...
                 $lokasi_dokumen='<b class="text-danger">Belum diketahui</b>';

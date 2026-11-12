@@ -153,7 +153,7 @@ $this->load->view('layout/header');
 				          	</label>
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
 				            	<input type="text" class="form-control" placeholder="Nomor Dokumen Kepemilikan" name="no_dokumen" value="<?=$value->no_dokumen;?>">
-				            	<input type="text" class="form-control" placeholder="Nomor Dokumen Kepemilikan" name="no_dokumen_old" value="<?=$value->no_dokumen;?>">
+				            	<input type="hidden" class="form-control" placeholder="Nomor Dokumen Kepemilikan" name="no_dokumen_old" value="<?=$value->no_dokumen;?>">
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -163,7 +163,7 @@ $this->load->view('layout/header');
 				          	</label>
 			          		<div class="col-md-9 col-sm-9 col-xs-12">
 				            	<input type="text" class="form-control" placeholder="ex: 756" name="luas" value="<?=$value->luas;?>">
-				            	<input type="text" class="form-control" placeholder="ex: 756" name="luas_old" value="<?=$value->luas;?>">
+				            	<input type="hidden" class="form-control" placeholder="ex: 756" name="luas_old" value="<?=$value->luas;?>">
 				          	</div>
 				        </div>
 				        <div class="form-group">
@@ -185,7 +185,7 @@ $this->load->view('layout/header');
 				            	<input type="hidden" class="form-control" name="sts_sertifikat_disinode_old" value="<?=$value->sts_sertifikat_disinode;?>">
 			          		</div>
 				        </div>
-				        <div class="form-group">
+				        <div class="form-group" style="display:none;">
 				          	<label class="control-label col-md-3 col-sm-3 col-xs-12" title="Lokasi Penempatan Sertifikat">
 				          		Keterangan
 				          		<span class="required">*</span>
