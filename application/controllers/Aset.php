@@ -320,11 +320,13 @@ class Aset extends CI_Controller {
 	        if ( ! $this->upload->do_upload('file'))
 	        {
 	                $error = array('error' => $this->upload->display_errors());
+	        		$json['error_msg']=$error;
 	        		$json['sts']=0;
 	        }
 	        else
 	        {
 	                $data = array('upload_data' => $this->upload->data());
+	        		$json['error_msg']='NULL';
 	        		$json['sts']=1;
 
 		        $param=array();
